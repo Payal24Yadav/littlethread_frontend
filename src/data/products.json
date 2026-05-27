@@ -1,0 +1,163 @@
+[
+  {
+    "id": 1,
+    "handle": "tiny-explorer-romper",
+    "name": "Tiny Explorer Romper",
+    "price": 899,
+    "category": "Baby",
+    "gender": "Unisex",
+    "sizes": ["0-3m", "3-6m", "6-12m"],
+    "images": [
+      "https://img.magnific.com/premium-photo/kids-clothing-fashion-store_926154-977.jpg?ga=GA1.1.966530005.1777894812&semt=ais_hybrid&w=740&q=80",
+      "https://img.magnific.com/premium-photo/little-girl-with-pink-bow-her-hair_782516-48058.jpg?ga=GA1.1.966530005.1777894812&semt=ais_hybrid&w=740&q=80"
+    ],
+    "description": "Soft cotton romper with playful prints — gentle on baby skin.",
+    "newDrop": true,
+    "trending": true
+  },
+  {
+    "id": 2,
+    "handle": "little-star-sleepsuit",
+    "name": "Little Star Sleepsuit",
+    "price": 749,
+    "category": "Baby",
+    "gender": "Unisex",
+    "sizes": ["0-3m", "3-6m", "6-12m"],
+    "images": [
+      "https://img.magnific.com/premium-photo/baby-wearing-shirt-with-yellow-bird-it_1309173-6596.jpg?ga=GA1.1.966530005.1777894812&semt=ais_hybrid&w=740&q=80",
+      "https://img.magnific.com/premium-photo/little-baby-boy-with-happy-smile_1309173-6597.jpg?ga=GA1.1.966530005.1777894812&semt=ais_hybrid&w=740&q=80"
+    ],
+    "description": "Cozy sleepsuit with envelope neck and breathable fabric.",
+    "newDrop": false,
+    "trending": true
+  },
+  {
+    "id": 3,
+    "handle": "mini-polo-tee-boys",
+    "name": "Mini Polo Tee (Boys)",
+    "price": 599,
+    "category": "Boys",
+    "gender": "Boys",
+    "sizes": ["2", "3", "4", "5"],
+    "images": [
+      "https://img.magnific.com/premium-photo/young-man-stylish-sunglasses-coral-pink-tshirt-casual-pose-light-beige-background-minimalist_1101054-75652.jpg?ga=GA1.1.966530005.1777894812&semt=ais_hybrid&w=740&q=80",
+      "https://img.magnific.com/premium-photo/happy-indian-kid-casual-clothing-against-neutral-background_731930-124515.jpg?ga=GA1.1.966530005.1777894812&semt=ais_hybrid&w=740&q=80"
+    ],
+    "description": "Classic cotton polo with soft collar for everyday wear.",
+    "newDrop": false,
+    "trending": true
+  },
+  {
+    "id": 4,
+    "handle": "floral-sundress-girls",
+    "name": "Floral Sundress (Girls)",
+    "price": 799,
+    "category": "Girls",
+    "gender": "Girls",
+    "sizes": ["2", "3", "4", "5"],
+    "images": [
+      "https://img.magnific.com/premium-photo/traditional-trendy-charm-little-girl-s-hispanic-celebration-outfit_802234-15051.jpg?ga=GA1.1.966530005.1777894812&semt=ais_hybrid&w=740&q=80",
+      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1000&auto=format&fit=crop"
+    ],
+    "description": "Lightweight sundress with gentle elastic back and floral print.",
+    "newDrop": false,
+    "trending": true
+  },
+  {
+    "id": 5,
+    "handle": "learning-blocks-set",
+    "name": "Learning Blocks Set (Toys)",
+    "price": 1299,
+    "category": "Toys",
+    "gender": "Unisex",
+    "sizes": [],
+    "images": [
+      "https://img.magnific.com/free-photo/happy-4-years-child-playing-with-toys_1398-4995.jpg?ga=GA1.1.966530005.1777894812&semt=ais_hybrid&w=740&q=80",
+      "https://img.magnific.com/premium-photo/classroom-interior-with-wooden-educational-toys-generated-by-ai_1038983-35428.jpg?ga=GA1.1.966530005.1777894812&semt=ais_hybrid&w=740&q=80"
+    ],
+    "description": "Colorful wooden blocks to build shapes and learn colors.",
+    "newDrop": true,
+    "trending": true
+  },
+  {
+    "id": 6,
+    "handle": "soft-plush-bunny",
+    "name": "Soft Plush Bunny",
+    "price": 499,
+    "category": "Toys",
+    "gender": "Unisex",
+    "sizes": [],
+    "images": [
+      "https://img.magnific.com/free-photo/still-life-crochet-plushies_23-2151091204.jpg?ga=GA1.1.966530005.1777894812&semt=ais_hybrid&w=740&q=80",
+      "https://img.magnific.com/free-photo/cute-plush-toys-arrangement_23-2150312305.jpg?ga=GA1.1.966530005.1777894812&semt=ais_hybrid&w=740&q=80"
+    ],
+    "description": "Super-soft plush toy ideal for cuddles and naps.",
+    "newDrop": false,
+    "trending": false
+  },
+  {
+    "id": 7,
+    "handle": "everyday-tee-boys",
+    "name": "Everyday Tee (Boys)",
+    "price": 399,
+    "category": "Boys",
+    "gender": "Boys",
+    "sizes": ["2", "3", "4", "5", "6"],
+    "images": [
+      "https://img.magnific.com/premium-photo/young-attractive-teenage-boy-urban-background_979672-741.jpg?ga=GA1.1.966530005.1777894812&semt=ais_hybrid&w=740&q=80",
+      "https://img.magnific.com/free-photo/impressed-points-up-young-handsome-guy-wearing-hat-with-glasses_141793-114073.jpg?ga=GA1.1.966530005.1777894812&semt=ais_hybrid&w=740&q=80"
+    ],
+    "description": "Durable everyday tee made from breathable cotton.",
+    "newDrop": false,
+    "trending": false
+  },
+  {
+    "id": 8,
+    "handle": "ruffle-top-girls",
+    "name": "Ruffle Top (Girls)",
+    "price": 699,
+    "category": "Girls",
+    "gender": "Girls",
+    "sizes": ["2", "3", "4", "5"],
+    "images": [
+      "https://img.magnific.com/premium-photo/elegant-young-woman-straightens-hair-pretty-modern-girl-stylish-lace-blouse-vintage-blue-pants-posing-street_338491-6892.jpg?ga=GA1.1.966530005.1777894812&semt=ais_hybrid&w=740&q=80",
+      "https://img.magnific.com/photo-1503341455253-b2e723bb3dbb?q=80&w=1000&auto=format&fit=crop"
+    ],
+    "description": "Charming ruffle sleeve top perfect for playdates and parties.",
+    "newDrop": true,
+    "trending": false
+  },
+  {
+    "id": 9,
+    "handle": "activity-gym-mat",
+    "name": "Activity Gym Mat",
+    "price": 1999,
+    "category": "Toys",
+    "gender": "Unisex",
+    "sizes": [],
+    "images": [
+      "https://img.magnific.com/free-photo/female-meditating-indoor_23-2148835402.jpg?ga=GA1.1.966530005.1777894812&semt=ais_hybrid&w=740&q=80",
+      "https://img.magnific.com/free-photo/female-meditating-indoor_23-2148835402.jpg?ga=GA1.1.966530005.1777894812&semt=ais_hybrid&w=740&q=80"
+      
+    ],
+    "description": "Play gym mat with detachable toys to stimulate baby's senses.",
+    "newDrop": false,
+    "trending": true
+  },
+  {
+    "id": 10,
+    "handle": "colorful-socks-pack",
+    "name": "Colorful Socks Pack",
+    "price": 299,
+    "category": "Baby",
+    "gender": "Unisex",
+    "sizes": ["0-6m", "6-12m"],
+    "images": [
+      "https://plus.unsplash.com/premium_photo-1776678941595-732fd9c16878?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "https://images.unsplash.com/photo-1734523715714-f47dbd3a5596?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    ],
+    "description": "Pack of 5 socks with playful patterns and soft elastic.",
+    "newDrop": false,
+    "trending": false
+  }
+]
