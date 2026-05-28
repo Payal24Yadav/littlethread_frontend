@@ -44,7 +44,7 @@ const HeroSection = () => {
   const prevSlide = () => setCurrent((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
 
   return (
-    <section className="relative w-full h-[500px] md:h-[550px] lg:h-[650px] overflow-hidden group">
+    <section className="relative w-full h-[360px] sm:h-[460px] md:h-[550px] lg:h-[650px] overflow-hidden group">
       <AnimatePresence mode="wait">
         <motion.div
           key={current}
@@ -55,8 +55,8 @@ const HeroSection = () => {
           className={`absolute inset-0 w-full h-full ${slides[current].bg}`}
         >
           {/* Background Image */}
-          <div 
-            className="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-[2000ms] scale-105"
+          <div
+            className="absolute inset-0 w-full h-full bg-contain bg-top bg-no-repeat transition-transform duration-[2000ms] md:bg-cover md:bg-center md:scale-105"
             style={{ backgroundImage: `url(${slides[current].image})` }}
           />
 
