@@ -38,6 +38,7 @@ const Home = () => {
           path: `/collection/${collection.id}`
         }))
       : staticCircularCategories;
+  const shouldCenterCategories = circularCategories.length <= 6;
 
   const boysGirlsCollections = collections.filter(c => /boys|girls/i.test(c.name));
   const featuredCollections = boysGirlsCollections.length > 0 ? boysGirlsCollections : [
@@ -87,7 +88,7 @@ const Home = () => {
     updateCarouselDots();
     window.addEventListener('resize', updateCarouselDots);
     return () => window.removeEventListener('resize', updateCarouselDots);
-  }, []);
+  }, [circularCategories.length]);
 
   const handleCopyCoupon = (code) => {
     navigator.clipboard.writeText(code);
@@ -148,14 +149,16 @@ const Home = () => {
           <div
             ref={carouselRef}
             onScroll={handleCategoryScroll}
-            className="flex items-center gap-6 md:gap-10 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory hide-scrollbar"
+            className={`grid grid-flow-col auto-cols-[minmax(6rem,1fr)] sm:auto-cols-[minmax(8rem,1fr)] items-start gap-6 overflow-x-auto pb-4 scroll-smooth snap-x snap-mandatory hide-scrollbar md:flex md:flex-nowrap md:gap-10 ${
+              shouldCenterCategories ? 'md:justify-center' : 'md:justify-start'
+            }`}
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {circularCategories.map((cat, i) => (
               cat.placeholder ? (
                 <div
                   key={cat.key}
-                  className="flex-shrink-0 text-center w-24 md:w-32 snap-start"
+                  className="text-center w-24 md:w-32 snap-start justify-self-center md:flex-shrink-0"
                 >
                   <div className="w-20 h-20 md:w-28 md:h-28 rounded-full bg-neutral-200 animate-pulse mb-3 mx-auto" />
                   <div className="h-3 w-16 md:w-20 rounded-full bg-neutral-200 animate-pulse mx-auto" />
@@ -164,7 +167,7 @@ const Home = () => {
                 <Link 
                   key={cat.name || i} 
                   to={cat.path} 
-                  className="flex-shrink-0 group text-center w-24 md:w-32 snap-start"
+                  className="group text-center w-24 md:w-32 snap-start justify-self-center md:flex-shrink-0"
                 >
                   <div className="w-20 h-20 md:w-28 md:h-28 rounded-full overflow-hidden bg-neutral-50 mb-3 mx-auto border-2 border-transparent group-hover:border-primary transition-all p-1">
                     <img 
