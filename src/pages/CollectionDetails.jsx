@@ -102,29 +102,25 @@ const CollectionDetails = () => {
               </div>
             </div>
 
-            {collection.imageUrl ? (
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45 }}
-                // Container ko grid me safely adjust karne aur balance banane ke liye changes:
-                className="overflow-hidden rounded-2xl border border-neutral-100 bg-neutral-50 shadow-sm w-full max-w-xl lg:max-w-2xl lg:ml-auto"
-              >
-                {/* Is wrapper ko flexibility ke liye change kiya hai */}
-                <div className="w-full h-full flex items-center justify-center">
-                  <img
-                    src={collection.imageUrl}
-                    alt={collection.name}
-                    // CLASS CHANGES YAHAN HAIN:
-                    // 'w-auto' aur 'h-auto' ke saath 'max-h' lagane se image text ke length se badi nahi hogi.
-                    // 'object-contain' isse cut hone se rokega.
-                    className="w-auto h-auto max-w-full max-h-[85vh] lg:max-h-[600px] object-contain rounded-2xl p-2"
-                    // 85vh sets a base max-height on smaller screens.
-                    // 600px limits it on larger desktop screens.
-                  />
-                </div>
-              </motion.div>
-            ) : null}
+           {collection.imageUrl ? (
+  <motion.div
+    initial={{ opacity: 0, y: 16 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.45 }}
+    className="w-full"
+  >
+    <div className="relative overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-sm">
+      {/* Fixed balanced height */}
+      <div className="h-[320px] sm:h-[420px] lg:h-[520px] w-full">
+        <img
+          src={collection.imageUrl}
+          alt={collection.name}
+          className="h-full w-full object-cover"
+        />
+      </div>
+    </div>
+  </motion.div>
+) : null}
           </div>
         </div>
       </section>
