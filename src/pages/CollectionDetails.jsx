@@ -107,15 +107,20 @@ const CollectionDetails = () => {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45 }}
-                className="overflow-hidden rounded-2xl border border-neutral-100 bg-white shadow-sm w-full max-w-xl lg:ml-auto"
+                // Container ko grid me safely adjust karne aur balance banane ke liye changes:
+                className="overflow-hidden rounded-2xl border border-neutral-100 bg-neutral-50 shadow-sm w-full max-w-xl lg:max-w-2xl lg:ml-auto"
               >
-                {/* Hapa se aspect-ratio hata diya taaki image full dikhe, cut na ho */}
-                <div className="w-full h-auto flex items-center justify-center bg-neutral-50">
+                {/* Is wrapper ko flexibility ke liye change kiya hai */}
+                <div className="w-full h-full flex items-center justify-center">
                   <img
                     src={collection.imageUrl}
                     alt={collection.name}
-                    className="w-full h-full object-contain rounded-2xl"
-                    // Agar aap chahte hain image poori dikhe bina kete, toh 'object-contain' sabse best hai
+                    // CLASS CHANGES YAHAN HAIN:
+                    // 'w-auto' aur 'h-auto' ke saath 'max-h' lagane se image text ke length se badi nahi hogi.
+                    // 'object-contain' isse cut hone se rokega.
+                    className="w-auto h-auto max-w-full max-h-[85vh] lg:max-h-[600px] object-contain rounded-2xl p-2"
+                    // 85vh sets a base max-height on smaller screens.
+                    // 600px limits it on larger desktop screens.
                   />
                 </div>
               </motion.div>
