@@ -140,6 +140,11 @@ const ProductDetails = () => {
     setSelectedImage(0);
   };
 
+  const handleImageError = (event) => {
+    event.currentTarget.onerror = null;
+    event.currentTarget.src = '/placeholder-product.png';
+  };
+
   return (
     <main className="min-h-screen bg-[#faf9f6] pt-24 pb-16 md:pt-28 lg:pt-32">
       <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
@@ -160,6 +165,7 @@ const ProductDetails = () => {
                 key={selectedImage + (productImages[0] || '')}
                 src={productImages[selectedImage]}
                 alt={product.name}
+                onError={handleImageError}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -176,7 +182,7 @@ const ProductDetails = () => {
                   onClick={() => setSelectedImage(idx)}
                   className={`aspect-square overflow-hidden rounded-lg border bg-white transition-all ${selectedImage === idx ? 'border-[#0a192f] p-0.5 shadow-sm' : 'border-black/5 hover:border-[#0a192f]/40'}`}
                 >
-                  <img src={img} alt="" className="h-full w-full rounded-md object-contain" />
+                  <img src={img} alt="" onError={handleImageError} className="h-full w-full rounded-md object-contain" />
                 </button>
               ))}
             </div>
@@ -340,7 +346,7 @@ const ProductDetails = () => {
                         selectedColor === color ? 'border-[#0a192f]' : 'border-transparent hover:border-neutral-300'
                       }`}
                     >
-                      <img src={thumb} alt={color} className="w-full h-full object-cover rounded-full" />
+                      <img src={thumb} alt={color} onError={handleImageError} className="w-full h-full object-cover rounded-full" />
                     </button>
                   );
                 })}

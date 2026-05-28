@@ -92,6 +92,10 @@ const ProductCard = ({ product }) => {
   const closeVariantModal = () => setShowVariantModal(false);
   const primaryImage = product.thumbnailUrl || product.images?.[0] || '/placeholder-product.png';
   const hoverImage = product.hoverThumbnailUrl || product.images?.[1] || primaryImage;
+  const handleImageError = (event) => {
+    event.currentTarget.onerror = null;
+    event.currentTarget.src = '/placeholder-product.png';
+  };
 
   return (
     <>
@@ -107,6 +111,7 @@ const ProductCard = ({ product }) => {
           <img 
             src={isHovered ? hoverImage : primaryImage} 
             alt={product.name}
+            onError={handleImageError}
             className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
           />
         </Link>
