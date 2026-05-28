@@ -137,7 +137,9 @@ const Navbar = () => {
               <Link to="/wishlist" className="p-2 text-neutral-800 hover:text-primary transition-colors relative">
                 <Heart size={22} strokeWidth={1.5} />
                 {wishlist.length > 0 && (
-                  <span className="absolute top-2 right-2 w-2 h-2 bg-secondary rounded-full border border-white"></span>
+                  <span className="absolute top-1.5 right-1.5 bg-secondary text-white text-[9px] font-bold min-w-4 h-4 px-1 flex items-center justify-center rounded-full">
+                    {wishlist.length > 99 ? '99+' : wishlist.length}
+                  </span>
                 )}
               </Link>
               <Link to="/cart" className="p-2 text-neutral-800 hover:text-primary transition-colors relative">
