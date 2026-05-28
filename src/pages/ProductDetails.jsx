@@ -141,18 +141,19 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className="pt-32 pb-20 container mx-auto px-6 bg-[#faf9f6]">
-      <Link to="/shop" className="flex items-center gap-2 font-bold mb-8 hover:text-[#dca450] transition-colors uppercase tracking-widest text-xs">
-        <ArrowLeft size={16} /> Back to Shop
-      </Link>
+    <main className="min-h-screen bg-[#faf9f6] pt-24 pb-16 md:pt-28 lg:pt-32">
+      <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
+        <Link to="/shop" className="mb-6 inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.18em] text-[#0a192f] transition-colors hover:text-[#dca450]">
+          <ArrowLeft size={16} /> Back to Shop
+        </Link>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(420px,0.78fr)] lg:gap-12 xl:gap-16">
         {/* Gallery */}
-        <div className="space-y-4">
+        <div className="space-y-4 lg:sticky lg:top-28 lg:self-start">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
-            className="aspect-[3/4] rounded-xl overflow-hidden bg-white shadow-sm"
+            className="flex aspect-[4/5] max-h-[calc(100vh-9rem)] min-h-[320px] items-center justify-center overflow-hidden rounded-xl border border-black/5 bg-white shadow-sm sm:aspect-[5/6] lg:min-h-[520px]"
           >
             <AnimatePresence mode='wait'>
               <motion.img
@@ -162,20 +163,20 @@ const ProductDetails = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="w-full h-full object-cover"
+                className="h-full w-full object-contain"
               />
             </AnimatePresence>
           </motion.div>
 
           {productImages.length > 1 && (
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-4 gap-3 sm:grid-cols-5 lg:grid-cols-4">
               {productImages.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(idx)}
-                  className={`aspect-square rounded-xl overflow-hidden border-2 transition-all ${selectedImage === idx ? 'border-[#0a192f] p-0.5' : 'border-transparent'}`}
+                  className={`aspect-square overflow-hidden rounded-lg border bg-white transition-all ${selectedImage === idx ? 'border-[#0a192f] p-0.5 shadow-sm' : 'border-black/5 hover:border-[#0a192f]/40'}`}
                 >
-                  <img src={img} alt="" className="w-full h-full object-cover rounded-lg" />
+                  <img src={img} alt="" className="h-full w-full rounded-md object-contain" />
                 </button>
               ))}
             </div>
@@ -186,18 +187,18 @@ const ProductDetails = () => {
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
-          className="flex flex-col pt-4"
+          className="flex flex-col lg:pt-8"
         >
-          <div className="flex justify-between items-start mb-2">
-            <div>
-              <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tighter leading-tight mb-2 text-[#0a192f]">
+          <div className="mb-3 flex items-start justify-between gap-5">
+            <div className="min-w-0">
+              <h1 className="max-w-[760px] text-3xl font-black uppercase leading-[0.95] tracking-normal text-[#0a192f] sm:text-4xl xl:text-5xl">
                 {product.name}
               </h1>
               {product.subtitle && (
-                <p className="text-neutral-400 font-bold text-xs uppercase tracking-widest mb-4">{product.subtitle}</p>
+                <p className="mt-4 text-[11px] font-black uppercase tracking-[0.22em] text-neutral-400">{product.subtitle}</p>
               )}
             </div>
-            <div className="flex gap-2">
+            <div className="flex shrink-0 gap-2">
               <button
                 onClick={() => {
                   if (!user) {
@@ -207,20 +208,20 @@ const ProductDetails = () => {
                   }
                   toggleWishlist(product);
                 }}
-                className={`p-3 rounded-full transition-all border bg-white ${isWishlisted
+                className={`grid h-12 w-12 place-items-center rounded-full border bg-white transition-all sm:h-14 sm:w-14 ${isWishlisted
                     ? 'border-[#0a192f] text-[#0a192f]'
                     : 'border-neutral-200 text-neutral-400 hover:border-[#0a192f] hover:text-[#0a192f]'
                   }`}
               >
                 <Heart size={20} fill={isWishlisted ? "currentColor" : "none"} />
               </button>
-              <button className="p-3 rounded-full transition-all border bg-white border-neutral-200 text-neutral-400 hover:border-[#0a192f] hover:text-[#0a192f]">
+              <button className="grid h-12 w-12 place-items-center rounded-full border border-neutral-200 bg-white text-neutral-400 transition-all hover:border-[#0a192f] hover:text-[#0a192f] sm:h-14 sm:w-14">
                 <Share2 size={20} />
               </button>
             </div>
           </div>
 
-          <div className="flex items-center gap-3 mb-6">
+          <div className="mb-7 flex flex-wrap items-center gap-3">
             <div className="flex items-center text-[#fbbf24]">
               {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
             </div>
@@ -230,11 +231,11 @@ const ProductDetails = () => {
             </div>
           </div>
 
-          <div className="flex items-baseline gap-4 mb-4">
-            <p className="text-4xl font-black text-[#e85d04]">₹{displayPrice}</p>
+          <div className="mb-4 flex flex-wrap items-baseline gap-4">
+            <p className="text-4xl font-black text-[#e85d04] sm:text-5xl">₹{displayPrice}</p>
             {(currentVariant?.compareAtPrice || product.compareAtPrice) && (currentVariant?.compareAtPrice || product.compareAtPrice) > displayPrice && (
-              <div className="flex items-center gap-3">
-                <p className="text-xl text-neutral-400 line-through font-black">₹{currentVariant?.compareAtPrice || product.compareAtPrice}</p>
+              <div className="flex flex-wrap items-center gap-3">
+                <p className="text-xl font-black text-neutral-400 line-through">₹{currentVariant?.compareAtPrice || product.compareAtPrice}</p>
                 <span className="px-3 py-1 bg-emerald-50 text-emerald-600 rounded-full text-sm font-black uppercase tracking-widest">
                   {product.discountPercentage}% OFF
                 </span>
@@ -242,11 +243,11 @@ const ProductDetails = () => {
             )}
           </div>
 
-          <div className="mb-6 border-b border-neutral-200 pb-6">
+          <div className="mb-7 border-b border-neutral-200 pb-7">
             <p className={`${displayStock > 0 ? 'text-[#10b981]' : 'text-[#ef4444]'} font-black italic text-sm mb-3 flex items-center gap-1`}>
               <Zap size={14} fill="currentColor" /> {displayStock > 0 ? `${displayStock} items left in stock` : 'Out of stock'}
             </p>
-            <div className="w-full max-w-sm bg-neutral-200 h-1.5 rounded-full overflow-hidden">
+            <div className="h-1.5 w-full max-w-xl overflow-hidden rounded-full bg-neutral-200">
               <div 
                 className={`${displayStock > 0 ? 'bg-[#10b981]' : 'bg-[#ef4444]'} h-full rounded-full transition-all`}
                 style={{ width: displayStock > 0 ? `${Math.min(100, Math.max(5, (displayStock / 10) * 100))}%` : '0%' }}
@@ -254,11 +255,11 @@ const ProductDetails = () => {
             </div>
           </div>
 
-          <p className="text-neutral-600 text-xs font-bold leading-relaxed mb-6">
+          <p className="mb-7 max-w-2xl text-sm font-bold leading-relaxed text-neutral-600">
             {product.description || 'Premium Collection. Handcrafted with precision and care.'}
           </p>
 
-          <p className="text-neutral-400 text-[10px] font-black uppercase tracking-widest mb-8">
+          <p className="mb-8 text-[10px] font-black uppercase tracking-widest text-neutral-400">
             Inclusive of all taxes
           </p>
 
@@ -348,8 +349,8 @@ const ProductDetails = () => {
           )}
 
           {/* Add to Cart & Buy Now */}
-          <div className="flex items-center gap-4 mb-4 mt-auto">
-            <div className="flex items-center gap-4 bg-white border border-neutral-200 rounded-lg p-1 w-max">
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+            <div className="flex w-full items-center justify-between gap-4 rounded-lg border border-neutral-200 bg-white p-1 sm:w-max">
               <button 
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
                 className="w-10 h-10 flex items-center justify-center text-xl text-neutral-500 hover:bg-neutral-100 rounded-md transition-colors disabled:opacity-50"
@@ -413,7 +414,7 @@ const ProductDetails = () => {
                 }, 600);
               }}
               disabled={displayStock === 0 || isAdding}
-              className="flex-1 h-14 bg-[#1a1a1a] text-white font-black text-xs uppercase tracking-widest rounded-sm hover:bg-black transition-all shadow-lg shadow-black/10 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="h-14 flex-1 rounded-md bg-[#1a1a1a] px-6 text-xs font-black uppercase tracking-widest text-white shadow-lg shadow-black/10 transition-all hover:bg-black disabled:cursor-not-allowed disabled:opacity-50"
             >
               {displayStock === 0 ? 'OUT OF STOCK' : isAdding ? 'ADDING TO CART...' : 'ADD TO CART'}
             </button>
@@ -429,13 +430,13 @@ const ProductDetails = () => {
               addToCart(product, currentVariant?.title || selectedSize, quantity);
               navigate('/checkout');
             }}
-            className="w-full h-14 bg-[#dca450] text-white font-black text-xs uppercase tracking-widest rounded-sm hover:bg-[#c99547] transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#dca450]/20 disabled:opacity-50 disabled:cursor-not-allowed mb-12"
+            className="mb-12 flex h-14 w-full items-center justify-center gap-2 rounded-md bg-[#dca450] text-xs font-black uppercase tracking-widest text-white shadow-lg shadow-[#dca450]/20 transition-all hover:bg-[#c99547] disabled:cursor-not-allowed disabled:opacity-50"
           >
             ORDER NOW <ChevronRight size={16} strokeWidth={3} />
           </button>
 
           {/* Info Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div className="flex items-center gap-4 p-4 border border-neutral-100 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
               <div className="p-2.5 bg-neutral-50 rounded-lg text-[#0a192f]"><Truck size={20} /></div>
               <div>
@@ -463,7 +464,8 @@ const ProductDetails = () => {
           </div>
         </section>
       )}
-    </div>
+      </div>
+    </main>
   );
 };
 
