@@ -50,8 +50,16 @@ const Checkout = () => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   };
 
+  const normalizePhone = (value) => {
+    let digits = String(value || '').replace(/\D/g, '');
+    if (digits.length > 10 && digits.startsWith('91')) {
+      digits = digits.slice(2);
+    }
+    return digits.slice(0, 10);
+  };
+
   const validatePhone = (value) => {
-    return /^\+?[0-9]{7,15}$/.test(value.replace(/\s+/g, ''));
+    return /^[0-9]{10}$/.test(normalizePhone(value));
   };
 
   const validatePinCode = (value) => {
@@ -77,7 +85,7 @@ const Checkout = () => {
     if (!formData.phone.trim()) {
       errors.phone = 'Phone number is required';
     } else if (!validatePhone(formData.phone)) {
-      errors.phone = 'Enter a valid phone number';
+      errors.phone = 'Enter a valid 10 digit phone number';
     }
     if (!formData.address.trim()) errors.address = 'Shipping address is required';
     if (!formData.city.trim()) errors.city = 'City is required';
@@ -123,7 +131,7 @@ const Checkout = () => {
           firstName: (prev.firstName || firstName || '').trim(),
           lastName: (prev.lastName || rest.join(' ') || '').trim(),
           email: (user.email || prev.email || '').trim(),
-          phone: (prev.phone || '').trim(),
+          phone: normalizePhone(prev.phone),
           addressLabel: (prev.addressLabel || 'Home').trim(),
           address: (prev.address || '').trim(),
           apartment: (prev.apartment || '').trim(),
@@ -143,7 +151,7 @@ const Checkout = () => {
             city: (saved.city || '').trim(),
             state: (saved.state || '').trim(),
             pinCode: (saved.pinCode || '').trim(),
-            phone: (saved.phone || prev.phone || '').trim(),
+            phone: normalizePhone(saved.phone || prev.phone),
           };
         }
 
@@ -166,7 +174,7 @@ const Checkout = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData(prev => ({ ...prev, [name]: name === 'phone' ? normalizePhone(value) : value }));
   };
 
   const handlePayment = async (e) => {
@@ -370,7 +378,7 @@ const Checkout = () => {
                               city: address.city || '',
                               state: address.state || '',
                               pinCode: address.pinCode || '',
-                              phone: address.phone || prev.phone || '',
+                              phone: normalizePhone(address.phone || prev.phone),
                             }));
                           }}
                           className={`rounded-3xl border p-5 text-left transition ${selectedAddressId === address.id ? 'border-primary bg-primary/5' : 'border-slate-200 hover:border-primary'}`}
@@ -406,7 +414,7 @@ const Checkout = () => {
                     </div>
                     <div>
                       <label className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-400 block mb-3">Phone number</label>
-                      <input required type="tel" name="phone" value={formData.phone || ''} onChange={handleInputChange} className={getInputClasses('phone')} placeholder="+91 98765 43210" data-invalid={!!formErrors.phone} />
+                      <input required type="tel" name="phone" value={formData.phone || ''} onChange={handleInputChange} className={getInputClasses('phone')} placeholder="9876543210" inputMode="numeric" maxLength={10} pattern="[0-9]{10}" data-invalid={!!formErrors.phone} />
                       {formErrors.phone && <p className="mt-2 text-sm text-rose-500">{formErrors.phone}</p>}
                     </div>
                   </div>
@@ -443,7 +451,7 @@ const Checkout = () => {
                     </div>
                     <div>
                       <label className="text-xs font-semibold uppercase tracking-[0.35em] text-slate-400 block mb-3">Phone</label>
-                      <input required type="tel" name="phone" value={formData.phone || ''} onChange={handleInputChange} className={getInputClasses('phone')} placeholder="Phone number" data-invalid={!!formErrors.phone} />
+                      <input required type="tel" name="phone" value={formData.phone || ''} onChange={handleInputChange} className={getInputClasses('phone')} placeholder="Phone number" inputMode="numeric" maxLength={10} pattern="[0-9]{10}" data-invalid={!!formErrors.phone} />
                       {formErrors.phone && <p className="mt-2 text-sm text-rose-500">{formErrors.phone}</p>}
                     </div>
                   </div>
