@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Heart, X } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -6,10 +6,17 @@ import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext.jsx';
 import toast from 'react-hot-toast';
 
+const isUsableImage = (value) => {
+  if (!value || typeof value !== 'string') return false;
+  const normalized = value.trim().toLowerCase();
+  return normalized !== '' && !normalized.includes('placeholder-product');
+};
+
 const ProductCard = ({ product }) => {
-  const [isHovered, setIsHovered] = useState(false);
   const [showVariantModal, setShowVariantModal] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
+  const [hoverImageFailed, setHoverImageFailed] = useState(false);
+  const [hoverImageLoaded, setHoverImageLoaded] = useState(false);
   const { addToCart, wishlist, toggleWishlist } = useCart();
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -90,11 +97,27 @@ const ProductCard = ({ product }) => {
   };
 
   const closeVariantModal = () => setShowVariantModal(false);
+
   const primaryImage = product.thumbnailUrl || product.images?.[0] || '/placeholder-product.png';
-  const hoverImage = product.hoverThumbnailUrl || product.images?.[1] || primaryImage;
+  const hoverImage = useMemo(() => {
+    const candidates = [
+      product.hoverThumbnailUrl,
+      ...(Array.isArray(product.images) ? product.images.slice(1) : []),
+    ];
+
+    return candidates.find((image) => isUsableImage(image) && image !== primaryImage) || null;
+  }, [primaryImage, product.hoverThumbnailUrl, product.images]);
+  const showHoverImage = !hoverImageFailed && hoverImage;
+
+  useEffect(() => {
+    setHoverImageFailed(false);
+    setHoverImageLoaded(false);
+  }, [hoverImage]);
+
   const handleImageError = (event) => {
     event.currentTarget.onerror = null;
-    event.currentTarget.src = '/placeholder-product.png';
+    setHoverImageFailed(true);
+    setHoverImageLoaded(false);
   };
 
   return (
@@ -102,18 +125,31 @@ const ProductCard = ({ product }) => {
       <motion.div 
         layout
         className="group flex flex-col h-full bg-white"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       {/* Image Container */}
       <div className="relative aspect-[3/4] overflow-hidden bg-[#f9f9f9]">
         <Link to={`/product/${product.handle || product.id}`}>
           <img 
-            src={isHovered ? hoverImage : primaryImage} 
+            src={primaryImage} 
             alt={product.name}
-            onError={handleImageError}
+            onError={(event) => {
+              event.currentTarget.onerror = null;
+              event.currentTarget.src = '/placeholder-product.png';
+            }}
             className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
           />
+          {showHoverImage && (
+            <img
+              src={hoverImage}
+              alt=""
+              aria-hidden="true"
+              onError={handleImageError}
+              onLoad={() => setHoverImageLoaded(true)}
+              className={`absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 ${
+                hoverImageLoaded ? 'group-hover:opacity-100' : ''
+              }`}
+            />
+          )}
         </Link>
 
         {/* Wishlist Button */}
