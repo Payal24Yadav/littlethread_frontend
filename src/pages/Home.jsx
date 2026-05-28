@@ -266,8 +266,17 @@ const Home = () => {
       {/* Featured Collections Grid */}
       <section className="pb-20 container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {featuredCollections.map((collection) => (
-            <div key={collection.name} className="relative aspect-[4/3] md:aspect-auto md:h-[500px] group overflow-hidden rounded-3xl shadow-xl">
+          {featuredCollections.map((collection) => {
+            const collectionPath = collection.id
+              ? `/collection/${collection.id}`
+              : `/shop?category=${encodeURIComponent(collection.name.replace(/ Collection$/i, ''))}`;
+
+            return (
+            <Link
+              key={collection.name}
+              to={collectionPath}
+              className="relative aspect-[4/3] md:aspect-auto md:h-[500px] group overflow-hidden rounded-3xl shadow-xl block focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-4"
+            >
               <img 
                 src={collection.imageUrl || collection.img || 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1200&q=80'}
                 alt={collection.name}
@@ -276,12 +285,13 @@ const Home = () => {
               <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all"></div>
               <div className="absolute bottom-10 left-10 text-white">
                 <h3 className="text-3xl font-bold mb-4 text-white font-display">{collection.name.toUpperCase()}</h3>
-                <Link to={collection.id ? `/collection/${collection.id}` : `/shop?category=${encodeURIComponent(collection.name.replace(/ Collection$/i, ''))}`} className="inline-block px-6 py-2 bg-white text-primary font-bold text-sm tracking-widest hover:bg-neutral-100 transition-colors uppercase">
+                <span className="inline-block px-6 py-2 bg-white text-primary font-bold text-sm tracking-widest group-hover:bg-neutral-100 transition-colors uppercase">
                   Explore Now
-                </Link>
+                </span>
               </div>
-            </div>
-          ))}
+            </Link>
+            );
+          })}
         </div>
       </section>
 
