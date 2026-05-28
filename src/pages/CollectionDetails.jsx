@@ -52,25 +52,27 @@ const CollectionDetails = () => {
   const products = collection.products || [];
 
   return (
-    <div className="min-h-screen bg-neutral-50 pb-16">
+ <div className="min-h-screen bg-neutral-50 pb-16">
       {/* Collection Header */}
-      <section className="border-b border-neutral-200 bg-white">
-        <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+      <section className="border-b border-neutral-100 bg-white">
+        {/* max-w-7xl aur mx-auto lagane se content screen ke corners se chipkega nahi */}
+        <div className="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
           <Link to="/" className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.2em] text-neutral-500 transition-colors hover:text-primary">
             <ArrowLeft size={15} /> Back to Home
           </Link>
 
-          <div className="mt-8 grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-            <div className="max-w-3xl">
+          {/* Grid spacing aur layout ko balance kiya hai */}
+          <div className="mt-8 grid items-start gap-12 lg:grid-cols-2">
+            <div className="max-w-2xl pr-0 lg:pr-4">
               <p className="text-[11px] font-black uppercase tracking-[0.35em] text-secondary">Collection</p>
-              <h1 className="mt-4 text-4xl font-black uppercase tracking-tight text-neutral-950 sm:text-5xl lg:text-6xl">
+              <h1 className="mt-4 text-4xl font-black uppercase tracking-tight text-neutral-950 sm:text-5xl lg:text-6xl leading-tight">
                 {collection.name}
               </h1>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-neutral-600">
+              <p className="mt-5 text-base leading-7 text-neutral-600">
                 {collection.description || 'Explore a curated edit of kids styles, accessories, and essentials selected for everyday comfort and special moments.'}
               </p>
 
-              <div className="mt-7 flex flex-wrap items-center gap-3">
+              <div className="mt-8 flex flex-wrap items-center gap-3">
                 <div className="inline-flex h-11 items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-4 text-xs font-black uppercase tracking-[0.16em] text-neutral-700">
                   <Grid size={15} /> {products.length} {products.length === 1 ? 'Item' : 'Items'}
                 </div>
@@ -88,13 +90,13 @@ const CollectionDetails = () => {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45 }}
-                className="overflow-hidden rounded-2xl border border-neutral-200 bg-neutral-100 shadow-sm"
+                className="overflow-hidden rounded-2xl border border-neutral-100 bg-neutral-50 shadow-sm w-full max-w-xl lg:ml-auto"
               >
-                <div className="aspect-[16/10] lg:aspect-[4/3]">
+                <div className="aspect-[16/10] sm:aspect-[4/3] lg:aspect-[4/3]">
                   <img
                     src={collection.imageUrl}
                     alt={collection.name}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover object-center"
                   />
                 </div>
               </motion.div>
@@ -104,8 +106,8 @@ const CollectionDetails = () => {
       </section>
 
       {/* Products Grid */}
-      <section className="container mx-auto px-4 py-10 sm:px-6 lg:px-8">
-        <div className="mb-6 flex flex-col gap-3 border-b border-neutral-200 pb-5 sm:flex-row sm:items-end sm:justify-between">
+      <section className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        <div className="mb-8 flex flex-col gap-3 border-b border-neutral-200 pb-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-[11px] font-black uppercase tracking-[0.28em] text-neutral-400">Products</p>
             <h2 className="mt-2 text-2xl font-black tracking-tight text-neutral-950">Available in this collection</h2>
