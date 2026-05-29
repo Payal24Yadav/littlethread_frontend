@@ -56,11 +56,11 @@ const CollectionDetails = () => {
 
   return (
     <div className="bg-neutral-50 min-h-screen font-sans text-neutral-900">
-      
+
       {/* Top Banner - Compact Version */}
       <div className="bg-[#fcf8f5]">
         <div className="max-w-6xl mx-auto px-4 pt-6 pb-10">
-          
+
           <div className="mb-4">
             <Link
               to="/"
@@ -71,18 +71,18 @@ const CollectionDetails = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            
+
             {/* Left Content */}
             <div className="flex flex-col justify-center lg:col-span-7 order-2 lg:order-1">
               <div className="flex items-center gap-2 text-secondary text-[11px] font-bold uppercase tracking-widest mb-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
                 Collection Spotlight
               </div>
-              
+
               <h1 className="text-3xl sm:text-4xl font-bold text-primary tracking-tight leading-tight mb-3">
                 {collection.name}
               </h1>
-              
+
               <p className="text-sm text-neutral-600 leading-relaxed max-w-lg mb-6">
                 {collection.description ||
                   "Explore a curated edit of styles, accessories, and essentials selected for everyday comfort and special moments."}
@@ -105,7 +105,7 @@ const CollectionDetails = () => {
                   <img
                     src={collection.imageUrl}
                     alt={collection.name}
-                    className="w-full h-auto max-h-[300px] object-contain rounded-lg"
+                    className="w-full h-auto object-contain mix-blend-multiply"
                   />
                 </div>
               </div>
@@ -116,7 +116,7 @@ const CollectionDetails = () => {
 
       {/* Featured Products Grid Section */}
       <div className="max-w-6xl mx-auto px-4 py-10">
-        
+
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 border-b border-neutral-200 pb-3">
           <h2 className="text-xl font-bold tracking-tight text-primary">
