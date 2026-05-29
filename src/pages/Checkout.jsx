@@ -536,55 +536,55 @@ const Checkout = () => {
               }} 
               appliedCode={coupon?.code} 
             />
-            <section className="overflow-hidden rounded-[2rem] bg-gradient-to-br from-slate-950 via-slate-900 to-slate-800 p-8 text-white shadow-2xl">
-              <div className="flex flex-col gap-4 text-slate-100">
+            <section className="checkout-summary-clear overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-6 text-slate-900 shadow-sm md:p-8">
+              <div className="flex flex-col gap-4">
                 <div>
-                  <p className="text-sm font-semibold uppercase tracking-[0.4em] text-slate-400">Order summary</p>
-                  <h2 className="mt-3 text-3xl font-black tracking-tight text-white">Your bag</h2>
+                  <p className="text-xs font-black uppercase tracking-[0.32em] text-primary">Order summary</p>
+                  <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">Your bag</h2>
                 </div>
-                <p className="max-w-md text-sm leading-7 text-slate-300">Review your order items, total amount and payment details before placing the order. Your checkout is fully encrypted.</p>
+                <p className="max-w-md text-sm font-medium leading-7 text-slate-600">Review your items, discounts, shipping, and payment method before placing the order.</p>
               </div>
 
               <div className="mt-8 space-y-4 max-h-[360px] overflow-y-auto pr-2 custom-scrollbar">
                 {cart.map((item) => (
-                  <div key={`${item.id}-${item.selectedSize}`} className="rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm">
+                  <div key={`${item.id}-${item.selectedSize}`} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
                     <div className="flex items-center gap-4">
-                      <div className="h-16 w-16 rounded-3xl overflow-hidden bg-slate-900">
+                      <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-white ring-1 ring-slate-200">
                         <img src={item.thumbnailUrl || item.images?.[0]} alt={item.name} className="h-full w-full object-cover" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="truncate text-sm font-semibold text-white">{item.name}</p>
-                        <p className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-400">Size: {item.selectedSize}</p>
+                        <p className="text-base font-black leading-snug text-slate-950">{item.name}</p>
+                        <p className="mt-2 text-xs font-bold uppercase tracking-[0.18em] text-slate-500">Size: {item.selectedSize}</p>
                       </div>
                       <div className="text-right">
                         <p className="font-black text-white">₹{item.price * item.quantity}</p>
-                        <p className="text-xs text-slate-400">Qty {item.quantity}</p>
+                        <p className="mt-1 text-xs font-bold text-slate-500">Qty {item.quantity}</p>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-8 space-y-4 border-t border-white/10 pt-6 text-sm text-slate-300">
-                <div className="flex justify-between">
+              <div className="mt-8 space-y-4 border-t border-slate-200 pt-6 text-base">
+                <div className="flex justify-between gap-4 font-semibold text-slate-700">
                   <span>Subtotal</span>
                   <span className="font-semibold text-white">₹{cartTotal}</span>
                 </div>
                 {discountAmount > 0 && (
-                  <div className="flex justify-between text-emerald-400 font-semibold">
+                  <div className="flex justify-between gap-4 font-black text-emerald-600">
                     <span>Discount ({coupon?.code})</span>
                     <span>-₹{discountAmount}</span>
                   </div>
                 )}
-                <div className="flex justify-between">
+                <div className="flex justify-between gap-4 font-semibold text-slate-700">
                   <span>Shipping</span>
-                  <span className="font-semibold text-emerald-400">FREE</span>
+                  <span className="font-black text-emerald-600">FREE</span>
                 </div>
               </div>
 
-              <div className="mt-8 border-t border-white/10 pt-6">
+              <div className="mt-8 border-t border-slate-200 pt-6">
                 <div className="flex items-center justify-between gap-4">
-                  <span className="text-xl font-black uppercase tracking-tight text-white">Total</span>
+                  <span className="text-xl font-black uppercase tracking-tight text-slate-950">Total</span>
                   <span className="text-3xl font-black text-amber-400">₹{finalTotal}</span>
                 </div>
                 <div className="mt-4 mb-4 text-sm text-slate-200">
@@ -603,17 +603,17 @@ const Checkout = () => {
                   type="submit"
                   form="checkout-form"
                   disabled={loading}
-                  className="mt-6 flex w-full items-center justify-center gap-3 rounded-3xl bg-white px-6 py-4 text-sm font-black uppercase tracking-[0.2em] text-slate-950 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-70"
+                  className="mt-6 flex w-full items-center justify-center gap-3 rounded-2xl bg-primary px-6 py-4 text-sm font-black uppercase tracking-[0.2em] text-white transition hover:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   {loading ? 'PROCESSING...' : <><Lock size={18} /> PAY SECURELY</>}
                 </button>
 
-                <div className="mt-6 grid gap-3 text-xs text-slate-400 sm:grid-cols-2">
+                <div className="mt-6 grid gap-3 text-xs font-bold text-slate-600 sm:grid-cols-2">
                   <div className="flex items-center gap-2">
-                    <ShieldCheck size={16} className="text-emerald-400" /> Secure checkout
+                    <ShieldCheck size={16} className="text-emerald-600" /> Secure checkout
                   </div>
                   <div className="flex items-center gap-2">
-                    <Truck size={16} className="text-emerald-400" /> Free delivery
+                    <Truck size={16} className="text-emerald-600" /> Free delivery
                   </div>
                 </div>
               </div>

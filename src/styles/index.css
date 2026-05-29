@@ -46,6 +46,36 @@
 /* small helpers */
 .chip { @apply inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-100 text-sm font-medium; }
 
+.checkout-summary-clear .text-white {
+  color: #0f172a !important;
+}
+
+.checkout-summary-clear button.text-white {
+  color: #ffffff !important;
+}
+
+.checkout-summary-clear .text-slate-400,
+.checkout-summary-clear .text-slate-300,
+.checkout-summary-clear .text-slate-200 {
+  color: #475569 !important;
+}
+
+.checkout-summary-clear .text-amber-400 {
+  color: #e12b2b !important;
+}
+
+.checkout-summary-clear .border-white\/10 {
+  border-color: #e2e8f0 !important;
+}
+
+.checkout-summary-clear .bg-white\/5 {
+  background-color: #f8fafc !important;
+}
+
+.checkout-summary-clear .bg-slate-900 {
+  background-color: #ffffff !important;
+}
+
 @layer utilities {
   .font-display { font-family: var(--font-display); }
   .hide-scrollbar {
