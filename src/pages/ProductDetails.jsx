@@ -307,10 +307,11 @@ const ProductDetails = () => {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(420px,0.78fr)] lg:gap-12 xl:gap-16">
         {/* Gallery */}
         <div className="space-y-4 lg:sticky lg:top-28 lg:self-start">
+          <div className="mx-auto w-full max-w-[760px] space-y-4">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
-            className="flex aspect-[4/5] max-h-[calc(100vh-9rem)] min-h-[320px] items-center justify-center overflow-hidden rounded-xl border border-black/5 bg-white shadow-sm sm:aspect-[5/6] lg:min-h-[520px]"
+            className="flex aspect-[4/5] w-full min-h-[320px] items-center justify-center overflow-hidden rounded-xl border border-black/5 bg-white shadow-sm sm:aspect-[5/6] lg:min-h-[520px]"
           >
             <AnimatePresence mode='wait'>
               <motion.img
@@ -342,6 +343,7 @@ const ProductDetails = () => {
               </div>
             </div>
           )}
+          </div>
         </div>
 
         {/* Info */}
