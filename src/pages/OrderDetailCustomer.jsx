@@ -129,7 +129,7 @@ export default function OrderDetailCustomer() {
 
   if (loading) {
     return (
-      <div className="pt-28 pb-16 container mx-auto px-6">
+      <div className="pt-8 pb-16 container mx-auto px-6">
         <div className="h-6 w-60 bg-neutral-100 rounded" />
         <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-1 h-72 rounded-2xl border border-neutral-100 bg-white shadow-sm" />
@@ -141,7 +141,7 @@ export default function OrderDetailCustomer() {
 
   if (error || !order) {
     return (
-      <div className="pt-28 pb-16 container mx-auto px-6">
+      <div className="pt-8 pb-16 container mx-auto px-6">
         <div className="rounded-2xl border border-red-100 bg-red-50 px-5 py-4 text-sm text-red-800">
           {error || 'Order not found'}
         </div>
@@ -157,7 +157,7 @@ export default function OrderDetailCustomer() {
   }
 
   return (
-    <div className="pt-28 pb-16 container mx-auto px-6">
+    <div className="pt-8 pb-16 container mx-auto px-6">
       <div className="flex items-end justify-between gap-6 flex-wrap">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.35em] text-neutral-400">Order details</p>
@@ -259,7 +259,7 @@ export default function OrderDetailCustomer() {
           {awb ? (
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="rounded-2xl border border-neutral-100 bg-neutral-50 p-4">
-                <p className="text-[11px] font-black uppercase tracking-widest text-neutral-400">AWB</p>
+                <p className="text-sm font-black uppercase tracking-widest text-neutral-400">AWB</p>
                 <p className="mt-1 font-black text-neutral-900">{awb}</p>
                 <button
                   type="button"
@@ -270,7 +270,7 @@ export default function OrderDetailCustomer() {
                 </button>
               </div>
               <div className="rounded-2xl border border-neutral-100 bg-neutral-50 p-4">
-                <p className="text-[11px] font-black uppercase tracking-widest text-neutral-400">Status</p>
+                <p className="text-sm font-black uppercase tracking-widest text-neutral-400">Status</p>
                 <p className="mt-1 font-black text-neutral-900">{shipment?.status || 'UNKNOWN'}</p>
                 {shipment?.courier ? <p className="mt-2 text-xs text-neutral-500">{shipment.courier}</p> : null}
               </div>
@@ -317,7 +317,7 @@ export default function OrderDetailCustomer() {
                           <p className="text-xs text-neutral-500">{evt.time ? formatDateTime(evt.time) : ''}</p>
                         </div>
                         {evt.location ? <p className="mt-1 text-xs text-neutral-500">{evt.location}</p> : null}
-                        <p className="mt-1 text-[11px] font-black uppercase tracking-widest text-neutral-400">{evt.source}</p>
+                        <p className="mt-1 text-sm font-black uppercase tracking-widest text-neutral-400">{evt.source}</p>
                       </div>
                     </div>
                   ))

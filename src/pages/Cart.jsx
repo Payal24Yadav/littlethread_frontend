@@ -36,7 +36,7 @@ const Cart = () => {
   }
 
   return (
-    <div className="pt-32 pb-20 container mx-auto px-6">
+    <div className="pt-10 pb-20 container mx-auto px-6">
       <h1 className="text-5xl md:text-7xl font-bold mb-12 font-display">
         Your <span className="text-secondary">Bag</span>
       </h1>
@@ -182,7 +182,7 @@ const Cart = () => {
             </Link>
 
             <div className="mt-8 pt-8 border-t border-neutral-200">
-              <p className="text-[10px] text-neutral-700 font-bold uppercase tracking-[0.2em] mb-4 text-center">Accepted Payments</p>
+              <p className="text-sm text-neutral-700 font-bold uppercase tracking-[0.2em] mb-4 text-center">Accepted Payments</p>
               <div className="flex justify-center gap-4 text-neutral-500">
                 <span className="font-black text-xs">VISA</span>
                 <span className="font-black text-xs">UPI</span>

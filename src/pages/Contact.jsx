@@ -56,7 +56,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="pt-28 md:pt-32 pb-16 md:pb-20 container mx-auto px-4 sm:px-6">
+    <div className="pt-8 md:pt-10 pb-16 md:pb-20 container mx-auto px-4 sm:px-6">
       <div className="text-center mb-12 md:mb-20 max-w-3xl mx-auto">
         <h1 className="text-4xl sm:text-5xl md:text-8xl font-black uppercase tracking-tighter mb-4 leading-none">
           GET IN <span className="text-primary">TOUCH</span>

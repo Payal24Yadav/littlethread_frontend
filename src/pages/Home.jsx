@@ -176,7 +176,7 @@ const Home = () => {
                       className="w-full h-full object-cover rounded-full"
                     />
                   </div>
-                  <span className="text-[11px] md:text-sm font-medium text-neutral-700 group-hover:text-primary transition-colors block">
+                  <span className="text-sm md:text-sm font-medium text-neutral-700 group-hover:text-primary transition-colors block">
                     {cat.name}
                   </span>
                 </Link>
@@ -206,22 +206,22 @@ const Home = () => {
             <div className="flex flex-col items-center text-center">
               <Truck size={28} className="text-primary mb-3" strokeWidth={1.5} />
               <h4 className="font-bold text-xs md:text-sm uppercase tracking-wider">Free Shipping</h4>
-              <p className="text-[10px] md:text-xs text-neutral-500 mt-1">On orders over ₹999</p>
+              <p className="text-sm md:text-xs text-neutral-500 mt-1">On orders over ₹999</p>
             </div>
             <div className="flex flex-col items-center text-center">
               <ShieldCheck size={28} className="text-primary mb-3" strokeWidth={1.5} />
               <h4 className="font-bold text-xs md:text-sm uppercase tracking-wider">100% Genuine</h4>
-              <p className="text-[10px] md:text-xs text-neutral-500 mt-1">Trusted by parents</p>
+              <p className="text-sm md:text-xs text-neutral-500 mt-1">Trusted by parents</p>
             </div>
             <div className="flex flex-col items-center text-center">
               <Clock size={28} className="text-primary mb-3" strokeWidth={1.5} />
               <h4 className="font-bold text-xs md:text-sm uppercase tracking-wider">15 Days Return</h4>
-              <p className="text-[10px] md:text-xs text-neutral-500 mt-1">Easy exchange policy</p>
+              <p className="text-sm md:text-xs text-neutral-500 mt-1">Easy exchange policy</p>
             </div>
             <div className="flex flex-col items-center text-center">
               <Star size={28} className="text-primary mb-3" strokeWidth={1.5} />
               <h4 className="font-bold text-xs md:text-sm uppercase tracking-wider">Premium Quality</h4>
-              <p className="text-[10px] md:text-xs text-neutral-500 mt-1">Made with love</p>
+              <p className="text-sm md:text-xs text-neutral-500 mt-1">Made with love</p>
             </div>
           </div>
         </div>

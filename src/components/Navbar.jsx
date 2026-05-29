@@ -84,7 +84,7 @@ const Navbar = () => {
   return (
     <>
       {/* Top Announcement Bar */}
-      <div className="bg-primary text-white text-[10px] md:text-xs py-2 px-4 text-center font-medium tracking-wide">
+      <div className="bg-primary text-white text-sm md:text-xs py-2 px-4 text-center font-medium tracking-wide">
         <AnimatePresence mode="wait">
           <motion.div
             key={announcementIndex}
@@ -128,7 +128,7 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   to={link.path}
-                  className={`text-[13px] font-medium transition-colors hover:text-secondary ${
+                  className={`text-base font-medium transition-colors hover:text-secondary ${
                     location.pathname + location.search === link.path ? 'text-secondary' : 'text-neutral-600'
                   }`}
                 >
@@ -154,7 +154,7 @@ const Navbar = () => {
               <Link to="/wishlist" className="p-2 text-neutral-800 hover:text-primary transition-colors relative">
                 <Heart size={22} strokeWidth={1.5} />
                 {wishlist.length > 0 && (
-                  <span className="absolute top-1.5 right-1.5 bg-secondary text-white text-[9px] font-bold min-w-4 h-4 px-1 flex items-center justify-center rounded-full">
+                  <span className="absolute top-1.5 right-1.5 bg-secondary text-white text-xs font-bold min-w-4 h-4 px-1 flex items-center justify-center rounded-full">
                     {wishlist.length > 99 ? '99+' : wishlist.length}
                   </span>
                 )}
@@ -162,7 +162,7 @@ const Navbar = () => {
               <Link to="/cart" className="p-2 text-neutral-800 hover:text-primary transition-colors relative">
                 <ShoppingBag size={22} strokeWidth={1.5} />
                 {cartCount > 0 && (
-                  <span className="absolute top-1.5 right-1.5 bg-secondary text-white text-[9px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
+                  <span className="absolute top-1.5 right-1.5 bg-secondary text-white text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full">
                     {cartCount}
                   </span>
                 )}
@@ -244,7 +244,7 @@ const Navbar = () => {
                 </button>
 
                 <div className="px-6 pb-6">
-                  <p className="text-[10px] font-black uppercase tracking-widest text-neutral-400 mb-4">Menu</p>
+                  <p className="text-sm font-black uppercase tracking-widest text-neutral-400 mb-4">Menu</p>
                   <div className="flex flex-col space-y-1">
                     {allNavLinks.map((link) => (
                       <Link

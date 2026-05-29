@@ -187,7 +187,7 @@ export default function TrackShipment() {
   };
 
   return (
-    <div className="pt-28 pb-16 container mx-auto px-6">
+    <div className="pt-8 pb-16 container mx-auto px-6">
       <div className="flex items-end justify-between gap-6 flex-wrap">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.35em] text-neutral-400">Shipment Tracking</p>
@@ -321,7 +321,7 @@ export default function TrackShipment() {
                   href={labelUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[11px] font-bold text-neutral-500 underline mt-2"
+                  className="text-sm font-bold text-neutral-500 underline mt-2"
                 >
                   Open saved label URL
                 </a>
@@ -355,7 +355,7 @@ export default function TrackShipment() {
                         <p className="text-xs text-neutral-500">{evt.time ? formatDateTime(evt.time) : ''}</p>
                       </div>
                       {evt.location ? <p className="mt-1 text-xs text-neutral-500">{evt.location}</p> : null}
-                      <p className="mt-1 text-[11px] font-black uppercase tracking-widest text-neutral-400">{evt.source}</p>
+                      <p className="mt-1 text-sm font-black uppercase tracking-widest text-neutral-400">{evt.source}</p>
                     </div>
                   </div>
                 ))

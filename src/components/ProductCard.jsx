@@ -184,7 +184,7 @@ const ProductCard = ({ product }) => {
             <button 
               onClick={handleAddClick}
               disabled={isAdding}
-              className="w-full py-2.5 bg-white/95 text-primary text-[10px] font-bold uppercase tracking-widest shadow-lg hover:bg-primary hover:text-white transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+              className="w-full py-2.5 bg-white/95 text-primary text-sm font-bold uppercase tracking-widest shadow-lg hover:bg-primary hover:text-white transition-all disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {isAdding ? 'Adding to cart...' : 'Quick Add'}
             </button>
@@ -194,7 +194,7 @@ const ProductCard = ({ product }) => {
       {/* Info */}
       <div className="pt-4 flex flex-col items-center text-center">
         <Link to={`/product/${product.handle || product.id}`} className="mb-1">
-          <h3 className="text-[13px] font-medium text-neutral-800 hover:text-primary transition-colors line-clamp-1 uppercase tracking-wide px-2">
+          <h3 className="text-base font-medium text-neutral-800 hover:text-primary transition-colors line-clamp-1 uppercase tracking-wide px-2">
             {product.name}
           </h3>
         </Link>
@@ -204,8 +204,8 @@ const ProductCard = ({ product }) => {
           </span>
           {product.compareAtPrice && product.compareAtPrice > product.price && (
             <>
-              <span className="text-[11px] text-neutral-400 line-through">₹{product.compareAtPrice}</span>
-              <span className="text-[10px] font-black text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded ml-1">
+              <span className="text-sm text-neutral-400 line-through">₹{product.compareAtPrice}</span>
+              <span className="text-sm font-black text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded ml-1">
                 {product.discountPercentage}% OFF
               </span>
             </>
@@ -236,7 +236,7 @@ const ProductCard = ({ product }) => {
                     className="rounded-2xl border border-neutral-200 p-4 text-left transition-all hover:border-primary hover:bg-neutral-50"
                   >
                     <span className="block font-black text-sm text-neutral-900">{variant.title}</span>
-                    <span className="block mt-2 text-[11px] uppercase tracking-[0.25em] text-neutral-500">
+                    <span className="block mt-2 text-sm uppercase tracking-[0.25em] text-neutral-500">
                       {variant.stock} in stock
                     </span>
                   </button>

@@ -27,7 +27,7 @@ const sections = [
 
 const PrivacyPolicy = () => {
   return (
-    <main className="bg-[#fffaf5] pt-28 pb-20 md:pt-32">
+    <main className="bg-[#fffaf5] pt-8 pb-20 md:pt-10">
       <div className="container mx-auto px-4 sm:px-6">
         <motion.section
           initial={{ opacity: 0, y: 24 }}

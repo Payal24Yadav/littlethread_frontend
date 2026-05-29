@@ -64,7 +64,7 @@ export default function MyOrders() {
   const empty = useMemo(() => !loading && !orders.length && !error, [loading, orders.length, error]);
 
   return (
-    <div className="pt-28 pb-16 container mx-auto px-6">
+    <div className="pt-8 pb-16 container mx-auto px-6">
       <div className="flex items-end justify-between gap-6 flex-wrap">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.35em] text-neutral-400">Account</p>
@@ -122,14 +122,14 @@ export default function MyOrders() {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="text-[11px] font-black uppercase tracking-widest text-neutral-400">Order</p>
+                    <p className="text-sm font-black uppercase tracking-widest text-neutral-400">Order</p>
                     <p className="mt-1 font-black text-neutral-900">{order.id}</p>
                     <p className="mt-2 text-xs text-neutral-500">
                       Placed on <span className="font-semibold text-neutral-700">{formatDate(order.createdAt)}</span>
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-[11px] font-black uppercase tracking-widest text-neutral-400">Status</p>
+                    <p className="text-sm font-black uppercase tracking-widest text-neutral-400">Status</p>
                     <p className="mt-1 text-sm font-black text-neutral-900">{order.status || order.rawStatus || 'ORDERED'}</p>
                     {shipment?.status ? (
                       <p className="mt-1 text-xs text-neutral-500">
@@ -146,7 +146,7 @@ export default function MyOrders() {
                     {image ? (
                       <img src={image} alt={product?.name || 'Product'} className="h-full w-full object-cover" />
                     ) : (
-                      <div className="text-[10px] font-black uppercase tracking-widest text-neutral-400">Item</div>
+                      <div className="text-sm font-black uppercase tracking-widest text-neutral-400">Item</div>
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -166,7 +166,7 @@ export default function MyOrders() {
                         <span className="ml-2 font-semibold text-neutral-700">({String(order.paymentStatus).toUpperCase()})</span>
                       ) : null}
                       {order?.razorpayPaymentId ? (
-                        <span className="ml-2 text-[11px] text-neutral-400">({order.razorpayPaymentId})</span>
+                        <span className="ml-2 text-sm text-neutral-400">({order.razorpayPaymentId})</span>
                       ) : null}
                     </p>
                     {shipment?.awb ? (

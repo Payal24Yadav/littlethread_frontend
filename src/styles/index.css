@@ -1,6 +1,11 @@
 @import "tailwindcss";
 
 @theme {
+  --text-xs: 0.85rem;
+  --text-sm: 0.95rem;
+  --text-base: 1.05rem;
+  --text-lg: 1.15rem;
+
   --color-primary: #003C71; /* Little Threads navy */
   --color-secondary: #E12B2B; /* Accent Red */
   --color-accent-orange: #D4814A; /* From the Shop Now button */
@@ -18,6 +23,7 @@
 
 @layer base {
   html, body, #root {
+    font-size: 17px;
     height: 100%;
   }
 

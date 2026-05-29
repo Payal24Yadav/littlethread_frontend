@@ -84,7 +84,7 @@ const CouponSection = ({ onApply, appliedCode }) => {
 
               <div className="p-5 flex flex-col justify-between h-full relative z-10 px-6">
                 <div>
-                  <span className="inline-block px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-pink-600 bg-pink-50 rounded-full mb-2">
+                  <span className="inline-block px-2.5 py-1 text-sm font-black uppercase tracking-widest text-pink-600 bg-pink-50 rounded-full mb-2">
                     {discountDisplay}
                   </span>
                   <div className="flex items-center justify-between gap-3 mt-1">
@@ -102,7 +102,7 @@ const CouponSection = ({ onApply, appliedCode }) => {
                 </div>
 
                 <div className="mt-4 flex items-center justify-between border-t border-neutral-100 pt-3">
-                  <span className="text-[10px] text-neutral-400 font-bold uppercase tracking-wider">
+                  <span className="text-sm text-neutral-400 font-bold uppercase tracking-wider">
                     {coupon.type === 'PERCENTAGE' ? 'Percentage Discount' : 'Flat Discount'}
                   </span>
                   {onApply && (

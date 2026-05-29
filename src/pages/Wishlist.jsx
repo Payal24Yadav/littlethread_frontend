@@ -8,7 +8,7 @@ const Wishlist = () => {
 
   if (wishlist.length === 0) {
     return (
-      <div className="pt-32 pb-20 container mx-auto px-6 text-center">
+      <div className="pt-10 pb-20 container mx-auto px-6 text-center">
         <h2 className="text-4xl font-black mb-4">Your wishlist is empty</h2>
         <p className="text-neutral-500 mb-8">Save your favourite items and find them here anytime.</p>
         <Link to="/shop" className="btn-primary px-8 py-3">Start Shopping</Link>
@@ -17,7 +17,7 @@ const Wishlist = () => {
   }
 
   return (
-    <div className="pt-32 pb-20 container mx-auto px-6">
+    <div className="pt-10 pb-20 container mx-auto px-6">
       <h1 className="text-5xl font-bold mb-12">Saved <span className="text-secondary">Items</span></h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {wishlist.map((product) => (

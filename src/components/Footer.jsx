@@ -74,7 +74,7 @@ const Footer = () => {
         </div>
 
         <div className="pt-10 border-t border-neutral-100 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-neutral-400 text-[11px] uppercase tracking-widest">
+          <p className="text-neutral-400 text-sm uppercase tracking-widest">
             © 2026 Little threads. all rights reserved.
           </p>
           <p className="text-center text-gray-600 text-sm mt-10 px-4">

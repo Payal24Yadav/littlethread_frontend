@@ -298,9 +298,9 @@ const ProductDetails = () => {
   };
 
   return (
-    <main className="min-h-screen bg-[#faf9f6] pt-24 pb-16 md:pt-28 lg:pt-32">
+    <main className="min-h-screen bg-[#faf9f6] pt-8 pb-16 md:pt-8 lg:pt-10">
       <div className="mx-auto w-full max-w-[1440px] px-4 sm:px-6 lg:px-8">
-        <Link to="/shop" className="mb-6 inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.18em] text-[#0a192f] transition-colors hover:text-[#dca450]">
+        <Link to="/shop" className="mb-6 inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.18em] text-[#0a192f] transition-colors hover:text-[#dca450]">
           <ArrowLeft size={16} /> Back to Shop
         </Link>
 
@@ -358,7 +358,7 @@ const ProductDetails = () => {
                 {product.name}
               </h1>
               {product.subtitle && (
-                <p className="mt-4 text-[11px] font-black uppercase tracking-[0.22em] text-neutral-400">{product.subtitle}</p>
+                <p className="mt-4 text-sm font-black uppercase tracking-[0.22em] text-neutral-400">{product.subtitle}</p>
               )}
             </div>
             <div className="flex shrink-0 gap-2">
@@ -426,11 +426,11 @@ const ProductDetails = () => {
             {product.description || 'Premium Collection. Handcrafted with precision and care.'}
           </p>
 
-          <p className="mb-8 text-[10px] font-black uppercase tracking-widest text-neutral-400">
+          <p className="mb-8 text-sm font-black uppercase tracking-widest text-neutral-400">
             Inclusive of all taxes
           </p>
 
-          <button className="flex items-center gap-2 text-[10px] font-black text-[#0a192f] tracking-widest border-b-2 border-[#0a192f] pb-0.5 uppercase w-max mb-8 hover:text-[#e85d04] hover:border-[#e85d04] transition-all">
+          <button className="flex items-center gap-2 text-sm font-black text-[#0a192f] tracking-widest border-b-2 border-[#0a192f] pb-0.5 uppercase w-max mb-8 hover:text-[#e85d04] hover:border-[#e85d04] transition-all">
             <ShoppingBag size={14} /> Size Guide
           </button>
 
@@ -608,14 +608,14 @@ const ProductDetails = () => {
               <div className="p-2.5 bg-neutral-50 rounded-lg text-[#0a192f]"><Truck size={20} /></div>
               <div>
                 <p className="text-xs font-black uppercase tracking-wider text-[#0a192f]">Free Delivery</p>
-                <p className="text-[10px] text-neutral-400 font-bold mt-0.5">Orders above ₹1999</p>
+                <p className="text-sm text-neutral-400 font-bold mt-0.5">Orders above ₹1999</p>
               </div>
             </div>
             <div className="flex items-center gap-4 p-4 border border-neutral-100 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
               <div className="p-2.5 bg-neutral-50 rounded-lg text-[#0a192f]"><RefreshCw size={20} /></div>
               <div>
                 <p className="text-xs font-black uppercase tracking-wider text-[#0a192f]">10 Day Returns</p>
-                <p className="text-[10px] text-neutral-400 font-bold mt-0.5">Easy & hassle free</p>
+                <p className="text-sm text-neutral-400 font-bold mt-0.5">Easy & hassle free</p>
               </div>
             </div>
           </div>
@@ -626,7 +626,7 @@ const ProductDetails = () => {
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="space-y-6">
             <div>
-              <p className="mb-2 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.24em] text-[#e97055]">
+              <p className="mb-2 inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.24em] text-[#e97055]">
                 <MessageCircle size={14} /> Customer Reviews
               </p>
               <h2 className="text-3xl font-black uppercase leading-none text-[#0a192f] sm:text-4xl">
@@ -725,7 +725,7 @@ const ProductDetails = () => {
               </div>
 
               <div className="mt-4">
-                <label className="inline-flex h-11 cursor-pointer items-center gap-2 rounded-md border border-dashed border-[#7dc7bd] bg-[#f5fffd] px-4 text-[10px] font-black uppercase tracking-[0.16em] text-[#0a192f] transition-colors hover:border-[#0a192f]">
+                <label className="inline-flex h-11 cursor-pointer items-center gap-2 rounded-md border border-dashed border-[#7dc7bd] bg-[#f5fffd] px-4 text-sm font-black uppercase tracking-[0.16em] text-[#0a192f] transition-colors hover:border-[#0a192f]">
                   <ImagePlus size={16} /> Add Photos
                   <input type="file" accept="image/*" multiple onChange={handleReviewImageChange} className="hidden" />
                 </label>
@@ -774,7 +774,7 @@ const ProductDetails = () => {
                         {review.userName || 'Anonymous'}
                       </h3>
                     </div>
-                    <span className="rounded-full bg-[#f4eee7] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#e97055]">
+                    <span className="rounded-full bg-[#f4eee7] px-3 py-1 text-sm font-black uppercase tracking-[0.14em] text-[#e97055]">
                       {new Date(review.createdAt).toLocaleDateString()}
                     </span>
                   </div>

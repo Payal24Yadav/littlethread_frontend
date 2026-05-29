@@ -69,7 +69,7 @@ const CollectionDetails = () => {
         <div className="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.2em] text-neutral-500 transition-colors hover:text-primary"
+            className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.2em] text-neutral-500 transition-colors hover:text-primary"
           >
             <ArrowLeft size={15} /> Back to Home
           </Link>
@@ -77,7 +77,7 @@ const CollectionDetails = () => {
           {/* Grid spacing aur layout ko balance kiya hai */}
           <div className="mt-8 grid items-start gap-12 lg:grid-cols-2">
             <div className="max-w-2xl pr-0 lg:pr-4">
-              <p className="text-[11px] font-black uppercase tracking-[0.35em] text-secondary">
+              <p className="text-sm font-black uppercase tracking-[0.35em] text-secondary">
                 Collection
               </p>
               <h1 className="mt-4 text-4xl font-black uppercase tracking-tight text-neutral-950 sm:text-5xl lg:text-6xl leading-tight">
@@ -129,7 +129,7 @@ const CollectionDetails = () => {
       <section className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-col gap-3 border-b border-neutral-200 pb-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-[11px] font-black uppercase tracking-[0.28em] text-neutral-400">
+            <p className="text-sm font-black uppercase tracking-[0.28em] text-neutral-400">
               Products
             </p>
             <h2 className="mt-2 text-2xl font-black tracking-tight text-neutral-950">

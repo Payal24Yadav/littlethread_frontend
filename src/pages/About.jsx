@@ -4,7 +4,7 @@ import { ShieldCheck, Heart, Truck, Star } from 'lucide-react';
 
 const About = () => {
   return (
-    <div className="pt-32 pb-20">
+    <div className="pt-10 pb-20">
       <div className="container mx-auto px-6">
         <motion.h1 
           initial={{ opacity: 0, y: 50 }}
