@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #003C71; /* Neubaby Navy Blue */
+  --color-primary: #003C71; /* Little Threads navy */
   --color-secondary: #E12B2B; /* Accent Red */
   --color-accent-orange: #D4814A; /* From the Shop Now button */
   --color-accent-blue: #003C71;
@@ -72,4 +72,3 @@
     border-radius: 9999px;
   }
 }
-
