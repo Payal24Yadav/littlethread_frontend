@@ -75,10 +75,10 @@ const ProductCard = ({ product }) => {
 
     performAddToCart(product, firstVariant?.title || 'Standard');
   };
-  
+
   const performAddToCart = (product, size) => {
     setIsAdding(true);
-    
+
     // Small timeout to give visual feedback
     setTimeout(() => {
       addToCart(product, size);
@@ -139,80 +139,78 @@ const ProductCard = ({ product }) => {
 
   return (
     <>
-      <motion.div 
+      <motion.div
         layout
         className="group flex flex-col h-full bg-white"
-    >
-      {/* Image Container */}
-      <div className="relative aspect-[3/4] overflow-hidden bg-[#f9f9f9]">
-        <Link to={`/product/${product.handle || product.id}`}>
-          <img 
-            src={primaryImage} 
-            alt={product.name}
-            onError={(event) => {
-              event.currentTarget.onerror = null;
-              event.currentTarget.src = '/placeholder-product.png';
-            }}
-            className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
-          />
-          {showHoverImage && (
+      >
+        {/* Image Container */}
+        <div className="relative aspect-[3/4] overflow-hidden bg-[#f9f9f9]">
+          <Link to={`/product/${product.handle || product.id}`}>
             <img
-              src={hoverImage}
-              alt=""
-              aria-hidden="true"
-              onError={handleImageError}
-              onLoad={() => setHoverImageLoaded(true)}
-              className={`absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 ${
-                hoverImageLoaded ? 'group-hover:opacity-100' : ''
-              }`}
+              src={primaryImage}
+              alt={product.name}
+              onError={(event) => {
+                event.currentTarget.onerror = null;
+                event.currentTarget.src = '/placeholder-product.png';
+              }}
+              className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
             />
-          )}
-        </Link>
+            {showHoverImage && (
+              <img
+                src={hoverImage}
+                alt=""
+                aria-hidden="true"
+                onError={handleImageError}
+                onLoad={() => setHoverImageLoaded(true)}
+                className={`absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 ${hoverImageLoaded ? 'group-hover:opacity-100' : ''
+                  }`}
+              />
+            )}
+          </Link>
 
-        {/* Wishlist Button */}
-        <button 
-          onClick={handleWishlistClick}
-          className={`absolute top-4 right-4 p-2 rounded-full transition-all duration-300 z-10 ${
-            isWishlisted ? 'text-secondary' : 'text-neutral-400 hover:text-secondary opacity-0 group-hover:opacity-100'
-          }`}
-        >
-          <Heart size={20} fill={isWishlisted ? "currentColor" : "none"} strokeWidth={1.5} />
-        </button>
+          {/* Wishlist Button */}
+          <button
+            onClick={handleWishlistClick}
+            className={`absolute top-4 right-4 p-2 rounded-full transition-all duration-300 z-10 ${isWishlisted ? 'text-secondary' : 'text-neutral-400 hover:text-secondary opacity-0 group-hover:opacity-100'
+              }`}
+          >
+            <Heart size={20} fill={isWishlisted ? "currentColor" : "none"} strokeWidth={1.5} />
+          </button>
 
-        {/* Quick Add Button (Desktop) */}
-        <div className="absolute bottom-0 left-0 w-full translate-y-full group-hover:translate-y-0 transition-transform duration-300 px-4 pb-4">
-            <button 
+          {/* Quick Add Button (Desktop) */}
+          <div className="absolute bottom-0 left-0 w-full translate-y-full group-hover:translate-y-0 transition-transform duration-300 px-4 pb-4">
+            <button
               onClick={handleAddClick}
               disabled={isAdding}
               className="w-full py-2.5 bg-white/95 text-primary text-sm font-bold uppercase tracking-widest shadow-lg hover:bg-primary hover:text-white transition-all disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {isAdding ? 'Adding to cart...' : 'Quick Add'}
             </button>
+          </div>
         </div>
-      </div>
 
-      {/* Info */}
-      <div className="pt-4 flex flex-col items-center text-center">
-        <Link to={`/product/${product.handle || product.id}`} className="mb-1">
-          <h3 className="text-base font-medium text-neutral-800 hover:text-primary transition-colors line-clamp-1 uppercase tracking-wide px-2">
-            {product.name}
-          </h3>
-        </Link>
-        <div className="flex items-center gap-2 mt-1">
-          <span className="text-sm font-bold text-primary">
-            ₹{product.price}
-          </span>
-          {product.compareAtPrice && product.compareAtPrice > product.price && (
-            <>
-              <span className="text-sm text-neutral-400 line-through">₹{product.compareAtPrice}</span>
-              <span className="text-sm font-black text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded ml-1">
-                {product.discountPercentage}% OFF
-              </span>
-            </>
-          )}
+        {/* Info */}
+        <div className="pt-4 flex flex-col items-center text-center">
+          <Link to={`/product/${product.handle || product.id}`} className="mb-1">
+            <h3 className="text-base font-medium text-neutral-800 hover:text-primary transition-colors line-clamp-1 uppercase tracking-wide px-2">
+              {product.name}
+            </h3>
+          </Link>
+          <div className="flex items-center gap-2 mt-1">
+            <span className="text-sm font-bold text-primary">
+              ₹{product.price}
+            </span>
+            {product.compareAtPrice && product.compareAtPrice > product.price && (
+              <>
+                <span className="text-sm text-neutral-400 line-through">₹{product.compareAtPrice}</span>
+                <span className="text-sm font-black text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded ml-1">
+                  {product.discountPercentage}% OFF
+                </span>
+              </>
+            )}
+          </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
 
       {showVariantModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center px-4 py-6">
