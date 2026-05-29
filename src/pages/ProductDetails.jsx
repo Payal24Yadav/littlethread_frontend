@@ -136,9 +136,22 @@ const ProductDetails = () => {
     return v.title === selectedSize;
   }) || parsedVariants[0];
 
-  const productImages = currentVariant?.images?.length > 0 
-    ? currentVariant.images 
-    : (product.images?.length > 0 ? product.images : [product.thumbnailUrl || '/placeholder-product.png']);
+  const productImages = [
+    ...(Array.isArray(currentVariant?.images) ? currentVariant.images : []),
+    ...(Array.isArray(product.images) ? product.images : []),
+    product.thumbnailUrl,
+    product.hoverThumbnailUrl,
+    ...parsedVariants.flatMap((variant) => Array.isArray(variant.images) ? variant.images : []),
+  ].filter((image, index, images) => (
+    typeof image === 'string' &&
+    image.trim() &&
+    !image.includes('placeholder-product') &&
+    images.indexOf(image) === index
+  ));
+
+  if (productImages.length === 0) {
+    productImages.push('/placeholder-product.png');
+  }
 
   const displayPrice = currentVariant?.price ?? product.price;
   const displayStock = currentVariant ? currentVariant.stock : (product.stock || 0);
@@ -314,12 +327,13 @@ const ProductDetails = () => {
           </motion.div>
 
           {productImages.length > 1 && (
-            <div className="grid grid-cols-4 gap-3 sm:grid-cols-5 lg:grid-cols-4">
+            <div className="flex gap-3 overflow-x-auto rounded-xl border border-black/5 bg-white p-3 shadow-sm">
               {productImages.map((img, idx) => (
                 <button
-                  key={idx}
+                  key={`${img}-${idx}`}
                   onClick={() => setSelectedImage(idx)}
-                  className={`aspect-square overflow-hidden rounded-lg border bg-white transition-all ${selectedImage === idx ? 'border-[#0a192f] p-0.5 shadow-sm' : 'border-black/5 hover:border-[#0a192f]/40'}`}
+                  className={`h-20 w-20 flex-shrink-0 overflow-hidden rounded-lg border bg-white transition-all sm:h-24 sm:w-24 ${selectedImage === idx ? 'border-[#0a192f] p-0.5 shadow-sm ring-2 ring-[#0a192f]/10' : 'border-black/5 hover:border-[#0a192f]/40'}`}
+                  aria-label={`View product image ${idx + 1}`}
                 >
                   <img src={img} alt="" onError={handleImageError} className="h-full w-full rounded-md object-contain" />
                 </button>
