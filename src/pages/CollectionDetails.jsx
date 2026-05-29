@@ -59,7 +59,7 @@ const CollectionDetails = () => {
 
       {/* Top Banner - Compact Version */}
       <div className="bg-[#fcf8f5]">
-        <div className="max-w-6xl mx-auto px-4 pt-6 pb-10">
+        <div className="max-w-6xl mx-auto px-4 pt-4 pb-6">
 
           <div className="mb-4">
             <Link
@@ -70,7 +70,7 @@ const CollectionDetails = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
 
             {/* Left Content */}
             <div className="flex flex-col justify-center lg:col-span-7 order-2 lg:order-1">
@@ -101,11 +101,11 @@ const CollectionDetails = () => {
             {/* Right Image Container - Simple, no shadows/cards */}
             {collection.imageUrl && (
               <div className="w-full lg:col-span-5 order-1 lg:order-2 flex justify-center lg:justify-end">
-                <div className="w-full max-w-[300px] lg:max-w-full">
+                <div className="w-full max-w-[250px] lg:max-w-[320px]">
                   <img
                     src={collection.imageUrl}
                     alt={collection.name}
-                    className="w-full h-auto object-contain mix-blend-multiply"
+                    className="w-full h-auto object-contain"
                   />
                 </div>
               </div>
