@@ -187,11 +187,11 @@ export default function TrackShipment() {
   };
 
   return (
-    <div className="pt-8 pb-16 container mx-auto px-6">
-      <div className="flex items-end justify-between gap-6 flex-wrap">
+    <div className="pt-6 pb-10 container mx-auto px-6 max-w-5xl">
+      <div className="flex items-end justify-between gap-4 flex-wrap">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.35em] text-neutral-400">Shipment Tracking</p>
-          <h1 className="mt-3 text-3xl sm:text-4xl font-black tracking-tight text-neutral-900">Track your order</h1>
+          <h1 className="mt-2 text-2xl sm:text-3xl font-black tracking-tight text-primary">Track your order</h1>
           <p className="mt-2 text-sm text-neutral-500">
             Track with your Order ID + email/phone, or directly with AWB.
           </p>
@@ -206,8 +206,8 @@ export default function TrackShipment() {
           <button
             type="button"
             onClick={() => setMode('order')}
-            className={`h-10 px-4 rounded-xl text-xs font-black uppercase tracking-widest border ${
-              mode === 'order' ? 'bg-black text-white border-black' : 'bg-white text-neutral-900 border-neutral-200'
+            className={`h-10 px-4 rounded-xl text-xs font-black uppercase tracking-widest border transition-colors ${
+              mode === 'order' ? 'bg-primary text-white border-primary' : 'bg-white text-neutral-900 border-neutral-200 hover:bg-neutral-50'
             }`}
           >
             Track by Order ID
@@ -215,8 +215,8 @@ export default function TrackShipment() {
           <button
             type="button"
             onClick={() => setMode('awb')}
-            className={`h-10 px-4 rounded-xl text-xs font-black uppercase tracking-widest border ${
-              mode === 'awb' ? 'bg-black text-white border-black' : 'bg-white text-neutral-900 border-neutral-200'
+            className={`h-10 px-4 rounded-xl text-xs font-black uppercase tracking-widest border transition-colors ${
+              mode === 'awb' ? 'bg-primary text-white border-primary' : 'bg-white text-neutral-900 border-neutral-200 hover:bg-neutral-50'
             }`}
           >
             Track by AWB
@@ -247,7 +247,7 @@ export default function TrackShipment() {
             />
             <button
               type="submit"
-              className="lg:col-span-1 h-12 px-6 rounded-xl bg-black text-white text-xs font-black uppercase tracking-widest disabled:opacity-50"
+              className="lg:col-span-1 h-12 px-6 rounded-xl bg-primary text-white text-xs font-black uppercase tracking-widest disabled:opacity-50 hover:bg-[#002855] transition-colors"
               disabled={!orderIdInput.trim() || !contactInput.trim() || loading}
             >
               {loading ? '...' : 'Go'}
@@ -263,7 +263,7 @@ export default function TrackShipment() {
             />
             <button
               type="submit"
-              className="h-12 px-6 rounded-xl bg-black text-white text-xs font-black uppercase tracking-widest disabled:opacity-50"
+              className="h-12 px-6 rounded-xl bg-primary text-white text-xs font-black uppercase tracking-widest disabled:opacity-50 hover:bg-[#002855] transition-colors"
               disabled={!awbInput.trim() || loading}
             >
               {loading ? 'Loading...' : 'Track'}
@@ -301,7 +301,7 @@ export default function TrackShipment() {
               <button
                 type="button"
                 onClick={onDownloadLabel}
-                className="h-11 rounded-xl bg-neutral-900 text-white text-xs font-black uppercase tracking-widest"
+                className="h-11 rounded-xl bg-primary text-white text-xs font-black uppercase tracking-widest hover:bg-[#002855] transition-colors"
               >
                 Download Label
               </button>

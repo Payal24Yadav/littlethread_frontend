@@ -64,12 +64,12 @@ export default function MyOrders() {
   const empty = useMemo(() => !loading && !orders.length && !error, [loading, orders.length, error]);
 
   return (
-    <div className="pt-8 pb-16 container mx-auto px-6">
-      <div className="flex items-end justify-between gap-6 flex-wrap">
+    <div className="pt-6 pb-10 container mx-auto px-6 max-w-5xl">
+      <div className="flex items-end justify-between gap-4 flex-wrap">
         <div>
           <p className="text-xs font-black uppercase tracking-[0.35em] text-neutral-400">Account</p>
-          <h1 className="mt-3 text-3xl sm:text-4xl font-black tracking-tight text-neutral-900">My Orders</h1>
-          {user?.email ? <p className="mt-2 text-sm text-neutral-500">{user.email}</p> : null}
+          <h1 className="mt-2 text-2xl sm:text-3xl font-black tracking-tight text-primary">My Orders</h1>
+          {user?.email ? <p className="mt-1 text-sm text-neutral-500">{user.email}</p> : null}
         </div>
         <Link to="/shop" className="text-xs font-black uppercase tracking-widest underline text-neutral-700">
           Continue shopping
@@ -99,7 +99,7 @@ export default function MyOrders() {
           <p className="mt-2 text-sm text-neutral-500">Your order history will appear here after checkout.</p>
           <Link
             to="/shop"
-            className="inline-flex mt-6 h-11 items-center justify-center rounded-xl bg-black px-6 text-xs font-black uppercase tracking-widest text-white"
+            className="inline-flex mt-6 h-10 items-center justify-center rounded-xl bg-primary px-6 text-xs font-black uppercase tracking-widest text-white hover:bg-[#002855] transition-colors"
           >
             Start shopping
           </Link>
@@ -107,7 +107,7 @@ export default function MyOrders() {
       ) : null}
 
       {!loading && orders.length ? (
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-4">
           {orders.map((order) => {
             const primary = getPrimaryItem(order);
             const product = primary?.product || null;
@@ -118,7 +118,7 @@ export default function MyOrders() {
             return (
               <div
                 key={order.id}
-                className="rounded-2xl border border-neutral-100 bg-white p-6 shadow-sm hover:shadow-md transition-shadow"
+                className="rounded-2xl border border-neutral-100 bg-white p-5 shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
@@ -141,8 +141,8 @@ export default function MyOrders() {
                   </div>
                 </div>
 
-                <div className="mt-5 flex gap-4">
-                  <div className="h-20 w-20 rounded-xl bg-neutral-50 border border-neutral-100 overflow-hidden flex items-center justify-center">
+                <div className="mt-4 flex gap-3">
+                  <div className="h-20 w-20 rounded-xl bg-neutral-50 border border-neutral-100 overflow-hidden flex items-center justify-center flex-shrink-0">
                     {image ? (
                       <img src={image} alt={product?.name || 'Product'} className="h-full w-full object-cover" />
                     ) : (
@@ -183,18 +183,18 @@ export default function MyOrders() {
                   </div>
                 </div>
 
-                <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                <div className="mt-5 flex flex-col sm:flex-row gap-2">
                   <button
                     type="button"
                     onClick={() => navigate(`/order/${order.id}`)}
-                    className="h-11 px-5 rounded-xl bg-black text-white text-xs font-black uppercase tracking-widest"
+                    className="h-10 px-4 rounded-xl bg-primary text-white text-[11px] font-black uppercase tracking-widest hover:bg-[#002855] transition-colors"
                   >
                     View order
                   </button>
                   <button
                     type="button"
                     onClick={() => shipment?.awb && navigate(`/track/${encodeURIComponent(shipment.awb)}`)}
-                    className="h-11 px-5 rounded-xl border border-neutral-200 bg-white text-neutral-900 text-xs font-black uppercase tracking-widest disabled:opacity-50"
+                    className="h-10 px-4 rounded-xl border border-neutral-200 bg-white text-primary text-[11px] font-black uppercase tracking-widest disabled:opacity-50 hover:bg-neutral-50 transition-colors"
                     disabled={!shipment?.awb}
                   >
                     Track shipment
@@ -202,7 +202,7 @@ export default function MyOrders() {
                   <button
                     type="button"
                     onClick={() => downloadInvoice(order.id)}
-                    className="h-11 px-5 rounded-xl border border-neutral-200 bg-white text-neutral-900 text-xs font-black uppercase tracking-widest flex items-center justify-center"
+                    className="h-10 px-4 rounded-xl border border-neutral-200 bg-white text-primary text-[11px] font-black uppercase tracking-widest flex items-center justify-center hover:bg-neutral-50 transition-colors"
                   >
                     Download invoice
                   </button>
