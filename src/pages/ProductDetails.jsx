@@ -166,7 +166,10 @@ const ProductDetails = () => {
 
   const handleReviewInputChange = (event) => {
     const { name, value } = event.target;
-    setReviewForm((current) => ({ ...current, [name]: value }));
+    const nextValue = name === 'userPhone'
+      ? value.replace(/\D/g, '').slice(0, 10)
+      : value;
+    setReviewForm((current) => ({ ...current, [name]: nextValue }));
   };
 
   const handleReviewImageChange = (event) => {
@@ -220,7 +223,7 @@ const ProductDetails = () => {
 
     const finalName = (reviewForm.userName || user?.name || '').trim();
     const finalEmail = (reviewForm.userEmail || user?.email || '').trim().toLowerCase();
-    const finalPhone = reviewForm.userPhone.trim();
+    const finalPhone = reviewForm.userPhone.replace(/\D/g, '').slice(0, 10);
     const finalComment = reviewForm.comment.trim();
 
     if (!finalName) {
@@ -230,6 +233,11 @@ const ProductDetails = () => {
 
     if (!finalEmail && !finalPhone) {
       toast.error('Please add an email or phone number.');
+      return;
+    }
+
+    if (finalPhone && finalPhone.length !== 10) {
+      toast.error('Please add a valid 10 digit phone number.');
       return;
     }
 
@@ -679,9 +687,13 @@ const ProductDetails = () => {
                 />
                 <input
                   name="userPhone"
+                  type="tel"
                   value={reviewForm.userPhone}
                   onChange={handleReviewInputChange}
                   placeholder="Phone number"
+                  inputMode="numeric"
+                  maxLength={10}
+                  pattern="[0-9]{10}"
                   className="h-12 rounded-md border border-neutral-200 bg-[#fffaf5] px-4 text-sm font-bold outline-none transition-colors focus:border-[#0a192f] sm:col-span-2"
                 />
                 <textarea

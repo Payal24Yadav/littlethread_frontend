@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ShoppingBag, Heart, Menu, X, Search, User } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../context/CartContext';
@@ -11,9 +11,12 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [announcementIndex, setAnnouncementIndex] = useState(0);
   const [categories, setCategories] = useState([]);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const { cartCount, wishlist } = useCart();
   const { user } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
   const navRef = useRef(null);
 
   const announcements = [
@@ -68,6 +71,15 @@ const Navbar = () => {
   }));
 
   const allNavLinks = [...fixedLinks, ...categoryLinks];
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    const query = searchTerm.trim();
+    if (!query) return;
+    setIsSearchOpen(false);
+    setIsMobileMenuOpen(false);
+    navigate(`/shop?search=${encodeURIComponent(query)}`);
+  };
 
   return (
     <>
@@ -131,7 +143,12 @@ const Navbar = () => {
                 <User size={22} strokeWidth={1.5} />
                 <span className="hidden md:inline text-xs font-semibold uppercase tracking-[0.15em]">{user ? user.name.split(' ')[0] : 'Login'}</span>
               </Link>
-              <button className="p-2 text-neutral-800 hover:text-primary transition-colors hidden sm:block">
+              <button
+                type="button"
+                onClick={() => setIsSearchOpen(true)}
+                className="p-2 text-neutral-800 hover:text-primary transition-colors hidden sm:block"
+                aria-label="Search products"
+              >
                 <Search size={22} strokeWidth={1.5} />
               </button>
               <Link to="/wishlist" className="p-2 text-neutral-800 hover:text-primary transition-colors relative">
@@ -156,6 +173,50 @@ const Navbar = () => {
 
         {/* Mobile Menu — slides from left, starts BELOW the navbar */}
         <AnimatePresence>
+          {isSearchOpen && (
+            <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-[70] bg-black/30"
+                onClick={() => setIsSearchOpen(false)}
+              />
+              <motion.div
+                initial={{ opacity: 0, y: -14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -14 }}
+                className="absolute left-1/2 top-full z-[80] w-[calc(100%-2rem)] max-w-2xl -translate-x-1/2 rounded-2xl border border-neutral-200 bg-white p-4 shadow-2xl"
+              >
+                <form onSubmit={handleSearchSubmit} className="flex items-center gap-3">
+                  <Search size={20} className="text-neutral-400" />
+                  <input
+                    autoFocus
+                    value={searchTerm}
+                    onChange={(event) => setSearchTerm(event.target.value)}
+                    placeholder="Search frocks, shoes, accessories..."
+                    className="min-w-0 flex-1 bg-transparent text-sm font-semibold text-neutral-900 outline-none placeholder:text-neutral-400"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setIsSearchOpen(false)}
+                    className="grid h-9 w-9 place-items-center rounded-full text-neutral-500 hover:bg-neutral-100"
+                    aria-label="Close search"
+                  >
+                    <X size={18} />
+                  </button>
+                  <button
+                    type="submit"
+                    className="h-9 rounded-full bg-primary px-4 text-xs font-black uppercase tracking-widest text-white disabled:opacity-50"
+                    disabled={!searchTerm.trim()}
+                  >
+                    Search
+                  </button>
+                </form>
+              </motion.div>
+            </>
+          )}
+
           {isMobileMenuOpen && (
             <>
               {/* Backdrop */}

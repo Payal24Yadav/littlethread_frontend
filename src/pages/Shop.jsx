@@ -15,6 +15,7 @@ const Shop = () => {
   const [sortBy, setSortBy] = useState('featured');
   
   const categoryFilter = searchParams.get('category') || 'All';
+  const searchQuery = (searchParams.get('search') || '').trim();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -53,6 +54,7 @@ const Shop = () => {
 
   const filteredProducts = useMemo(() => {
     let result = [...products];
+    const normalizedSearch = searchQuery.toLowerCase();
 
     if (categoryFilter !== 'All') {
       if (categoryFilter === 'New') {
@@ -70,6 +72,28 @@ const Shop = () => {
       }
     }
 
+    if (normalizedSearch) {
+      result = result.filter((product) => {
+        const categoryNames = Array.isArray(product.categories)
+          ? product.categories.map((category) => category.name)
+          : [];
+        const collectionNames = Array.isArray(product.collections)
+          ? product.collections.map((collection) => collection.name)
+          : [];
+        const searchableText = [
+          product.name,
+          product.subtitle,
+          product.description,
+          product.handle,
+          product.category,
+          ...categoryNames,
+          ...collectionNames,
+        ].filter(Boolean).join(' ').toLowerCase();
+
+        return searchableText.includes(normalizedSearch);
+      });
+    }
+
     if (sortBy === 'price-low') {
       result.sort((a, b) => a.price - b.price);
     } else if (sortBy === 'price-high') {
@@ -77,7 +101,7 @@ const Shop = () => {
     }
 
     return result;
-  }, [categoryFilter, sortBy, products]);
+  }, [categoryFilter, searchQuery, sortBy, products]);
 
   const FilterContent = () => (
     <div className="space-y-8">
@@ -123,7 +147,9 @@ const Shop = () => {
               <h1 className="text-2xl md:text-3xl font-bold text-neutral-900">
                 {categoryFilter === 'All' ? 'All Products' : `${categoryFilter} Collection`}
               </h1>
-              <p className="text-sm text-neutral-500 mt-1">Showing {filteredProducts.length} items</p>
+              <p className="text-sm text-neutral-500 mt-1">
+                Showing {filteredProducts.length} items{searchQuery ? ` for "${searchQuery}"` : ''}
+              </p>
             </div>
             
             <div className="flex items-center gap-3 w-full md:w-auto">
