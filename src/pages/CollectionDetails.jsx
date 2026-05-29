@@ -30,9 +30,9 @@ const CollectionDetails = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-[#faf9f6]">
-        <Loader2 className="animate-spin text-primary" size={48} />
-        <p className="font-black uppercase tracking-widest text-xs animate-pulse text-neutral-500">
+      <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-neutral-50 font-sans">
+        <Loader2 className="animate-spin text-primary" size={40} />
+        <p className="font-bold uppercase tracking-widest text-xs animate-pulse text-neutral-500">
           Loading Collection...
         </p>
       </div>
@@ -41,19 +41,19 @@ const CollectionDetails = () => {
 
   if (error || !collection) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-6 bg-[#faf9f6] px-4 text-center">
-        <h2 className="text-3xl font-black uppercase tracking-tight text-neutral-800">
-          Collection not found
+      <div className="min-h-screen flex flex-col items-center justify-center gap-6 bg-neutral-50 px-4 text-center font-sans">
+        <h2 className="text-2xl font-bold tracking-tight text-primary">
+          Collection Not Found
         </h2>
-        <p className="text-neutral-500 max-w-md">
+        <p className="text-sm text-neutral-500 max-w-md">
           {error ||
             "The collection you're looking for doesn't exist or has been removed."}
         </p>
         <Link
           to="/"
-          className="px-8 py-3 bg-black text-white rounded-full text-xs font-black uppercase tracking-widest hover:bg-neutral-800 transition-colors shadow-lg"
+          className="px-6 py-2.5 bg-primary text-white rounded-lg text-xs font-bold hover:bg-[#002855] transition-colors shadow-sm"
         >
-          Back to Home
+          Return Home
         </Link>
       </div>
     );
@@ -62,123 +62,116 @@ const CollectionDetails = () => {
   const products = collection.products || [];
 
   return (
-    <div className="min-h-screen bg-neutral-50 pb-16">
-      {/* Collection Header */}
-      <section className="border-b border-neutral-100 bg-white">
-        {/* max-w-7xl aur mx-auto lagane se content screen ke corners se chipkega nahi */}
-        <div className="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
+    <div className="bg-neutral-50 min-h-screen pt-8 pb-16 font-sans text-[#1d2432]">
+      <div className="container mx-auto px-4 max-w-6xl">
+        
+        {/* Breadcrumb Navigation */}
+        <div className="mb-6">
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-[0.2em] text-neutral-500 transition-colors hover:text-primary"
+            className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-neutral-500 hover:text-primary transition-colors"
           >
-            <ArrowLeft size={15} /> Back to Home
+            <ArrowLeft size={14} /> Back to Home
           </Link>
+        </div>
 
-          {/* Grid spacing aur layout ko balance kiya hai */}
-          <div className="mt-8 grid items-start gap-12 lg:grid-cols-2">
-            <div className="max-w-2xl pr-0 lg:pr-4">
-              <p className="text-sm font-black uppercase tracking-[0.35em] text-secondary">
-                Collection
-              </p>
-              <h1 className="mt-4 text-4xl font-black uppercase tracking-tight text-neutral-950 sm:text-5xl lg:text-6xl leading-tight">
+        {/* Collection Hero Card */}
+        <div className="bg-white rounded-xl border border-neutral-200 shadow-sm overflow-hidden mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2">
+            
+            {/* Left Content */}
+            <div className="p-8 lg:p-12 flex flex-col justify-center order-2 lg:order-1">
+              <span className="inline-block px-3 py-1 bg-secondary/10 text-secondary text-[10px] font-bold uppercase tracking-widest rounded-md w-fit mb-4">
+                Collection Spotlight
+              </span>
+              <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-primary mb-3">
                 {collection.name}
               </h1>
-              <p className="mt-5 text-base leading-7 text-neutral-600">
+              <p className="text-sm leading-relaxed text-neutral-600 max-w-md mb-8">
                 {collection.description ||
                   "Explore a curated edit of kids styles, accessories, and essentials selected for everyday comfort and special moments."}
               </p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <div className="inline-flex h-11 items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-4 text-xs font-black uppercase tracking-[0.16em] text-neutral-700">
-                  <Grid size={15} /> {products.length}{" "}
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="inline-flex items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-2.5 text-xs font-bold text-neutral-700">
+                  <Grid size={15} className="text-primary"/> {products.length}{" "}
                   {products.length === 1 ? "Item" : "Items"}
                 </div>
                 <Link
                   to="/shop"
-                  className="inline-flex h-11 items-center gap-2 rounded-full bg-primary px-5 text-xs font-black uppercase tracking-[0.16em] text-white transition hover:bg-neutral-950"
+                  className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 text-xs font-bold text-white transition hover:bg-[#002855] shadow-sm active:scale-[0.98]"
                 >
                   <ShoppingBag size={15} /> Shop All
                 </Link>
               </div>
             </div>
 
-           {collection.imageUrl ? (
-  <motion.div
-    initial={{ opacity: 0, y: 16 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.45 }}
-    className="w-full"
-  >
-    <div className="relative overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-sm">
-      {/* Fixed balanced height */}
-      <div className="h-[320px] sm:h-[420px] lg:h-[520px] w-full">
-        <img
-          src={collection.imageUrl}
-          alt={collection.name}
-          className="h-full w-full object-cover"
-        />
-      </div>
-    </div>
-  </motion.div>
-) : null}
+            {/* Right Image */}
+            {collection.imageUrl && (
+              <div className="h-64 sm:h-80 lg:h-full w-full bg-neutral-100 order-1 lg:order-2 border-b lg:border-b-0 lg:border-l border-neutral-200">
+                <img
+                  src={collection.imageUrl}
+                  alt={collection.name}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            )}
           </div>
         </div>
-      </section>
 
-      {/* Products Grid */}
-      <section className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mb-8 flex flex-col gap-3 border-b border-neutral-200 pb-5 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-sm font-black uppercase tracking-[0.28em] text-neutral-400">
-              Products
+        {/* Products Grid Section */}
+        <div>
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 border-b border-neutral-200 pb-3">
+            <div>
+              <h2 className="text-xl font-bold tracking-tight text-primary flex items-center gap-2">
+                <Grid size={20} /> Available Products
+              </h2>
+            </div>
+            <p className="text-xs font-semibold text-neutral-500 mt-2 sm:mt-0">
+              Showing {products.length}{" "}
+              {products.length === 1 ? "product" : "products"}
             </p>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-neutral-950">
-              Available in this collection
-            </h2>
           </div>
-          <p className="text-sm font-semibold text-neutral-500">
-            Showing {products.length}{" "}
-            {products.length === 1 ? "product" : "products"}
-          </p>
-        </div>
 
-        {products.length === 0 ? (
-          <div className="mx-auto max-w-xl rounded-2xl border border-neutral-200 bg-white px-6 py-12 text-center shadow-sm">
-            <h3 className="text-xl font-black text-neutral-900">
-              No products in this collection yet
-            </h3>
-            <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-neutral-500">
-              Stay tuned. New arrivals will appear here as soon as they are
-              added.
-            </p>
-            <Link
-              to="/shop"
-              className="mt-6 inline-flex h-11 items-center rounded-full bg-primary px-6 text-xs font-black uppercase tracking-widest text-white transition hover:bg-neutral-950"
+          {products.length === 0 ? (
+            <div className="rounded-xl border border-neutral-200 bg-white p-10 text-center shadow-sm max-w-2xl mx-auto mt-8">
+              <ShoppingBag size={40} className="mx-auto text-neutral-300 mb-4" />
+              <h3 className="text-lg font-bold text-neutral-900 mb-2">
+                No products in this collection yet
+              </h3>
+              <p className="text-sm text-neutral-500 max-w-md mx-auto mb-6">
+                Stay tuned. New arrivals will appear here as soon as they are added to this collection.
+              </p>
+              <Link
+                to="/shop"
+                className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 text-xs font-bold text-white transition hover:bg-[#002855] shadow-sm active:scale-[0.98]"
+              >
+                Explore All Products
+              </Link>
+            </div>
+          ) : (
+            <motion.div
+              layout
+              className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4"
             >
-              Explore All Products
-            </Link>
-          </div>
-        ) : (
-          <motion.div
-            layout
-            className="grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-3 xl:grid-cols-4"
-          >
-            <AnimatePresence mode="popLayout">
-              {products.map((product) => (
-                <motion.div
-                  key={product.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <ProductCard product={product} />
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
-        )}
-      </section>
+              <AnimatePresence mode="popLayout">
+                {products.map((product) => (
+                  <motion.div
+                    key={product.id}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ProductCard product={product} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
+          )}
+        </div>
+        
+      </div>
     </div>
   );
 };
