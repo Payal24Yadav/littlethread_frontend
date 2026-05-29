@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Camera, MessageCircle, Play } from 'lucide-react';
+import { Mail, Phone, MapPin, MessageSquare } from 'lucide-react';
 import toast from 'react-hot-toast';
 import api from '../utils/api';
 
@@ -56,140 +56,186 @@ const Contact = () => {
   };
 
   return (
-    <div className="pt-8 md:pt-10 pb-16 md:pb-20 container mx-auto px-4 sm:px-6">
-      <div className="text-center mb-12 md:mb-20 max-w-3xl mx-auto">
-        <h1 className="text-4xl sm:text-5xl md:text-8xl font-black uppercase tracking-tighter mb-4 leading-none">
-          GET IN <span className="text-primary">TOUCH</span>
-        </h1>
-        <p className="text-neutral-500 text-base sm:text-lg font-medium px-4">
-          Questions? Collabs? Just want to say hi? We're here.
-        </p>
-      </div>
+    <div className="bg-white min-h-screen pb-16 font-sans text-[#1d2432]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
-        {/* Form */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-white p-6 sm:p-8 md:p-12 lg:p-16 rounded-[2rem] md:rounded-[3rem] border border-neutral-200 shadow-[0_24px_80px_rgba(0,0,0,0.08)]"
-        >
-          <form onSubmit={handleSubmit} className="space-y-6 md:space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
-              <div className="space-y-2">
-                <label className="text-xs font-black uppercase tracking-widest text-neutral-400">Your Name</label>
-                <input 
+        {/* Main Header */}
+        <div className="text-center mb-10 max-w-2xl mx-auto">
+          <motion.h1
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl md:text-5xl font-bold tracking-tight text-[#1d2432]"
+          >
+            Contact Us
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.1 }}
+            className="mt-3 text-neutral-500 text-sm leading-relaxed"
+          >
+            Questions about orders, collaborations, or Little Threads? We'd love to hear from you.
+            Fill out the form or reach out directly through our contact metrics below.
+          </motion.p>
+        </div>
+
+        {/* Core Layout Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+
+          {/* LEFT SIDE: Info Boxes & Map */}
+          <div className="lg:col-span-5 space-y-6">
+
+            {/* 2x2 Grid of Quick Contact Blocks */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+              {/* Phone Card */}
+              <div className="bg-white border border-[#f08375]/20 rounded-xl p-4 text-center flex flex-col items-center justify-center min-h-[135px] shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-9 h-9 rounded-full bg-[#f08375]/10 flex items-center justify-center text-[#f08375] mb-2">
+                  <Phone size={18} />
+                </div>
+                <h3 className="font-bold text-xs text-[#1d2432] mb-0.5">Phone</h3>
+                <p className="text-[11px] text-neutral-500 font-medium">+91 9949471150</p>
+              </div>
+
+              {/* WhatsApp Card */}
+              <div className="bg-white border border-[#a187b4]/20 rounded-xl p-4 text-center flex flex-col items-center justify-center min-h-[135px] shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-9 h-9 rounded-full bg-[#a187b4]/10 flex items-center justify-center text-[#a187b4] mb-2">
+                  <MessageSquare size={18} />
+                </div>
+                <h3 className="font-bold text-xs text-[#1d2432] mb-0.5">WhatsApp</h3>
+                <p className="text-[11px] text-neutral-500 font-medium">+91 9949471150</p>
+              </div>
+
+              {/* Email Card */}
+              <div className="bg-white border border-[#7fbba6]/20 rounded-xl p-4 text-center flex flex-col items-center justify-center min-h-[135px] shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-9 h-9 rounded-full bg-[#7fbba6]/10 flex items-center justify-center text-[#7fbba6] mb-2">
+                  <Mail size={18} />
+                </div>
+                <h3 className="font-bold text-xs text-[#1d2432] mb-0.5">Email</h3>
+                <p className="text-[11px] text-neutral-500 font-medium break-all px-1">support@littlethreads.in</p>
+              </div>
+
+              {/* Shop/Studio Card */}
+              <div className="bg-white border border-[#f9b254]/20 rounded-xl p-4 text-center flex flex-col items-center justify-center min-h-[135px] shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-9 h-9 rounded-full bg-[#f9b254]/10 flex items-center justify-center text-[#f9b254] mb-2">
+                  <MapPin size={18} />
+                </div>
+                <h3 className="font-bold text-xs text-[#1d2432] mb-0.5">Our Studio</h3>
+                <p className="text-[11px] text-neutral-500 leading-tight">
+                  Attapur, Hyderabad, <br /> Telangana - 500030
+                </p>
+              </div>
+
+            </div>
+
+            {/* Google Map Section */}
+            <div className="w-full h-52 rounded-xl overflow-hidden border border-neutral-200 shadow-sm relative">
+              <iframe
+                title="Little Threads Location Map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3808.0443977533866!2d78.4191427!3d17.3616612!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb97abc64af0ad%3A0xcd306c529f798f02!2sAttapur%2C%20Hyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
+                className="w-full h-full border-0"
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+
+          </div>
+
+          {/* RIGHT SIDE: Contact Form */}
+          <div className="lg:col-span-7 lg:pl-4">
+            <div className="mb-5">
+              <h2 className="text-2xl font-bold tracking-tight text-[#1d2432] mb-1">
+                Get In Touch
+              </h2>
+              <p className="text-xs text-neutral-500 max-w-xl">
+                Have an inquiry or custom styling choice? Share your notes here and our customer relation desk will follow up swiftly.
+              </p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+
+              {/* Name Input */}
+              <div className="flex flex-col space-y-1">
+                <label className="text-xs font-semibold text-[#1d2432]">
+                  Name
+                </label>
+                <input
                   name="name"
-                  type="text" 
+                  type="text"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="John Doe" 
+                  placeholder="Your Name..."
                   required
-                  className="w-full bg-neutral-50 text-neutral-900 placeholder:text-neutral-400 border border-neutral-200 px-5 py-4 rounded-2xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-colors"
+                  className="w-full h-10 border border-neutral-200 rounded-lg px-3 text-sm bg-white focus:outline-none focus:border-[#7fbba6] transition-colors"
                 />
               </div>
-              <div className="space-y-2">
-                <label className="text-xs font-black uppercase tracking-widest text-neutral-400">Email Address</label>
-                <input 
+
+              {/* Email Input */}
+              <div className="flex flex-col space-y-1">
+                <label className="text-xs font-semibold text-[#1d2432]">
+                  Email
+                </label>
+                <input
                   name="email"
-                  type="email" 
+                  type="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="john@example.com" 
+                  placeholder="exemplar@yourmail.com"
                   required
-                  className="w-full bg-neutral-50 text-neutral-900 placeholder:text-neutral-400 border border-neutral-200 px-5 py-4 rounded-2xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-colors"
+                  className="w-full h-10 border border-neutral-200 rounded-lg px-3 text-sm bg-white focus:outline-none focus:border-[#7fbba6] transition-colors"
                 />
               </div>
-            </div>
-            
-            <div className="space-y-2">
-              <label className="text-xs font-black uppercase tracking-widest text-neutral-400">Subject</label>
-              <select
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                className="w-full bg-neutral-50 text-neutral-900 border border-neutral-200 px-5 py-4 rounded-2xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-colors appearance-none"
-              >
-                <option>General Inquiry</option>
-                <option>Order Support</option>
-                <option>Collaborations</option>
-                <option>Wholesale</option>
-              </select>
-            </div>
 
-            <div className="space-y-2">
-              <label className="text-xs font-black uppercase tracking-widest text-neutral-400">Message</label>
-              <textarea 
-                name="message"
-                rows="5" 
-                value={formData.message}
-                onChange={handleChange}
-                placeholder="What's on your mind?" 
-                required
-                className="w-full bg-neutral-50 text-neutral-900 placeholder:text-neutral-400 border border-neutral-200 px-5 py-4 rounded-2xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-colors resize-none"
-              ></textarea>
-            </div>
+              {/* Subject Dropdown Select */}
+              <div className="flex flex-col space-y-1">
+                <label className="text-xs font-semibold text-[#1d2432]">
+                  Subject
+                </label>
+                <select
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  className="w-full h-10 border border-neutral-200 rounded-lg px-3 text-sm bg-white focus:outline-none focus:border-[#7fbba6] transition-colors appearance-none"
+                >
+                  <option>General Inquiry</option>
+                  <option>Order Support</option>
+                  <option>Collaborations</option>
+                  <option>Wholesale</option>
+                </select>
+              </div>
 
-            <button
-              type="submit"
-              disabled={submitting}
-              className="w-full py-4 sm:py-5 bg-primary text-white font-black text-base sm:text-xl rounded-2xl hover:scale-[1.02] active:scale-95 transition-all shadow-xl shadow-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
-            >
-              {submitting ? 'SENDING...' : 'SEND MESSAGE'}
-            </button>
-          </form>
-        </motion.div>
+              {/* Message Input */}
+              <div className="flex flex-col space-y-1">
+                <label className="text-xs font-semibold text-[#1d2432]">
+                  Message
+                </label>
+                <textarea
+                  name="message"
+                  rows="4"
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Type Here..."
+                  required
+                  className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:border-[#7fbba6] transition-colors resize-none"
+                />
+              </div>
 
-        {/* Info */}
-        <div className="flex flex-col justify-between py-0 lg:py-10 gap-10 lg:gap-0">
-          <div className="space-y-8 sm:space-y-10 lg:space-y-12">
-            <div className="flex gap-5 sm:gap-6 items-start">
-              <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary flex-shrink-0">
-                <Mail size={28} />
+              {/* Submit Button */}
+              {/* Contact Component ke andar Submit Button Section */}
+              <div className="pt-1">
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="w-full h-11 rounded-lg bg-[#1d2432] hover:bg-[#2d374c] text-white font-semibold text-sm tracking-wide transition-colors shadow-sm active:scale-[0.99] disabled:opacity-60 disabled:pointer-events-none"
+                >
+                  {submitting ? 'SENDING...' : 'Send Now'}
+                </button>
               </div>
-              <div>
-                <h3 className="text-lg sm:text-xl font-black uppercase tracking-tight mb-1">Email Us</h3>
-                <p className="text-neutral-500 font-medium break-all">littlethreadsfashion@gmail.com</p>
-                <p className="text-neutral-500 font-medium">support@littlethreads.in</p>
-              </div>
-            </div>
 
-            <div className="flex gap-5 sm:gap-6 items-start">
-              <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center text-secondary flex-shrink-0">
-                <Phone size={28} />
-              </div>
-              <div>
-                <h3 className="text-lg sm:text-xl font-black uppercase tracking-tight mb-1">Call Us</h3>
-                <p className="text-neutral-500 font-medium">+91 9949471150</p>
-                <p className="text-neutral-500 font-medium">Mon - Sat: 10AM - 7PM</p>
-              </div>
-            </div>
-
-            <div className="flex gap-5 sm:gap-6 items-start">
-              <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-500 flex-shrink-0">
-                <MapPin size={28} />
-              </div>
-              <div>
-                <h3 className="text-lg sm:text-xl font-black uppercase tracking-tight mb-1">Visit Studio</h3>
-                <p className="text-neutral-500 font-medium">Third Floor, VVR Green Meadows,</p>
-                <p className="text-neutral-500 font-medium">Attapur, Hyderabad, Telangana - 500030.</p>
-              </div>
-            </div>
+            </form>
           </div>
 
-          <div className="pt-6 lg:pt-20">
-            <h3 className="text-xs font-black uppercase tracking-[0.2em] mb-8 text-neutral-400">Join the Community</h3>
-              <div className="flex gap-4 flex-wrap">
-              <a href="#" className="p-5 bg-neutral-100 rounded-2xl hover:bg-primary hover:text-white transition-all">
-                <Camera size={24} />
-              </a>
-              <a href="#" className="p-5 bg-neutral-100 rounded-2xl hover:bg-primary hover:text-white transition-all">
-                <MessageCircle size={24} />
-              </a>
-              <a href="#" className="p-5 bg-neutral-100 rounded-2xl hover:bg-primary hover:text-white transition-all">
-                <Play size={24} />
-              </a>
-              </div>
-          </div>
         </div>
       </div>
     </div>
