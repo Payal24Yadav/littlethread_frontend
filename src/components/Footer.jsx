@@ -42,7 +42,7 @@ const Footer = () => {
             <ul className="space-y-4 text-sm text-neutral-500">
               <li><Link to="/contact" className="hover:text-primary transition-colors">Contact Us</Link></li>
               <li><Link to="/about" className="hover:text-primary transition-colors">About Our Brand</Link></li>
-              <li><Link to="/faq" className="hover:text-primary transition-colors">Shipping & Exchanges</Link></li>
+              <li><Link to="/shipping-exchanges" className="hover:text-primary transition-colors">Shipping & Exchanges</Link></li>
               <li><Link to="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
               <li className="pt-4 border-t border-neutral-100">
                 <span className="block font-bold mb-1">Email:</span>

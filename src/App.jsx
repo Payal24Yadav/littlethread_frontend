@@ -13,6 +13,8 @@ import OrderDetailCustomer from './pages/OrderDetailCustomer';
 import Cart from './pages/Cart';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import ShippingExchanges from './pages/ShippingExchanges';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import Wishlist from './pages/Wishlist';
 import Checkout from './pages/Checkout';
 import Login from './pages/Login';
@@ -60,6 +62,8 @@ function App() {
             <Route path="/wishlist" element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/shipping-exchanges" element={<ShippingExchanges />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
           </Routes>
         </AnimatePresence>
       </main>
