@@ -327,7 +327,8 @@ const ProductDetails = () => {
           </motion.div>
 
           {productImages.length > 1 && (
-            <div className="flex gap-3 overflow-x-auto rounded-xl border border-black/5 bg-white p-3 shadow-sm">
+            <div className="w-full max-w-full overflow-hidden rounded-xl border border-black/5 bg-white p-3 shadow-sm">
+              <div className="flex max-w-full gap-3 overflow-x-auto overscroll-x-contain pb-1">
               {productImages.map((img, idx) => (
                 <button
                   key={`${img}-${idx}`}
@@ -338,6 +339,7 @@ const ProductDetails = () => {
                   <img src={img} alt="" onError={handleImageError} className="h-full w-full rounded-md object-contain" />
                 </button>
               ))}
+              </div>
             </div>
           )}
         </div>
