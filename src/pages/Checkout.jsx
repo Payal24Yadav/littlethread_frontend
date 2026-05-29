@@ -169,8 +169,33 @@ const Checkout = () => {
     };
   }, [cart, navigate, user, userAddresses]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = async (e) => {
     const { name, value } = e.target;
+    
+    if (name === 'pinCode') {
+      const pinValue = value.replace(/\D/g, '').slice(0, 6);
+      setFormData(prev => ({ ...prev, pinCode: pinValue }));
+      
+      if (pinValue.length === 6) {
+        try {
+          const res = await fetch(`https://api.postalpincode.in/pincode/${pinValue}`);
+          const data = await res.json();
+          if (data && data[0] && data[0].Status === 'Success') {
+            const postOffice = data[0].PostOffice[0];
+            setFormData(prev => ({
+              ...prev,
+              city: postOffice.District || postOffice.Region || prev.city,
+              state: postOffice.State || prev.state
+            }));
+            setFormErrors(prev => ({ ...prev, city: null, state: null, pinCode: null }));
+          }
+        } catch (err) {
+          console.error("Pincode API Error", err);
+        }
+      }
+      return;
+    }
+    
     setFormData(prev => ({ ...prev, [name]: name === 'phone' ? normalizePhone(value) : value }));
   };
 
