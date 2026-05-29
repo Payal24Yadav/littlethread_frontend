@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingBag, Heart, Share2, ArrowLeft, Star, ShieldCheck, Truck, RefreshCw, Loader2, ChevronRight, Zap, Check, X } from 'lucide-react';
+import { ShoppingBag, Heart, Share2, ArrowLeft, Star, ShieldCheck, Truck, RefreshCw, Loader2, ChevronRight, Zap, Check, X, ImagePlus, Trash2, Send, MessageCircle } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext.jsx';
 import ProductCard from '../components/ProductCard';
@@ -54,6 +54,16 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const [parsedVariants, setParsedVariants] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
+  const [reviewForm, setReviewForm] = useState({
+    rating: 5,
+    userName: '',
+    userEmail: '',
+    userPhone: '',
+    comment: '',
+  });
+  const [reviewFiles, setReviewFiles] = useState([]);
+  const [reviewPreviews, setReviewPreviews] = useState([]);
+  const [isSubmittingReview, setIsSubmittingReview] = useState(false);
 
   const { addToCart, wishlist, toggleWishlist } = useCart();
   const { user } = useAuth();
@@ -109,6 +119,15 @@ const ProductDetails = () => {
 
   const isWishlisted = wishlist.some(item => item.id === product.id);
   const relatedProducts = product.relatedProducts || [];
+  const reviews = Array.isArray(product.reviews) ? product.reviews : [];
+  const reviewCount = reviews.length;
+  const averageRating = reviewCount
+    ? reviews.reduce((sum, review) => sum + Number(review.rating || 0), 0) / reviewCount
+    : 0;
+  const ratingBreakdown = [5, 4, 3, 2, 1].map((rating) => ({
+    rating,
+    count: reviews.filter((review) => Number(review.rating) === rating).length,
+  }));
   
   const currentVariant = parsedVariants.find(v => {
     if (selectedColor && selectedSize) {
@@ -143,6 +162,118 @@ const ProductDetails = () => {
   const handleImageError = (event) => {
     event.currentTarget.onerror = null;
     event.currentTarget.src = '/placeholder-product.png';
+  };
+
+  const handleReviewInputChange = (event) => {
+    const { name, value } = event.target;
+    setReviewForm((current) => ({ ...current, [name]: value }));
+  };
+
+  const handleReviewImageChange = (event) => {
+    const incomingFiles = Array.from(event.target.files || []);
+    if (!incomingFiles.length) return;
+
+    const availableSlots = Math.max(0, 5 - reviewFiles.length);
+    const acceptedFiles = incomingFiles
+      .filter((file) => file.type.startsWith('image/'))
+      .slice(0, availableSlots);
+
+    if (incomingFiles.length > acceptedFiles.length) {
+      toast.error('You can add up to 5 review photos.');
+    }
+
+    setReviewFiles((current) => [...current, ...acceptedFiles]);
+    setReviewPreviews((current) => [
+      ...current,
+      ...acceptedFiles.map((file) => ({
+        name: file.name,
+        url: URL.createObjectURL(file),
+      })),
+    ]);
+    event.target.value = '';
+  };
+
+  const removeReviewImage = (index) => {
+    setReviewFiles((current) => current.filter((_, itemIndex) => itemIndex !== index));
+    setReviewPreviews((current) => {
+      const next = current.filter((_, itemIndex) => itemIndex !== index);
+      URL.revokeObjectURL(current[index]?.url);
+      return next;
+    });
+  };
+
+  const resetReviewForm = () => {
+    reviewPreviews.forEach((preview) => URL.revokeObjectURL(preview.url));
+    setReviewForm({
+      rating: 5,
+      userName: '',
+      userEmail: '',
+      userPhone: '',
+      comment: '',
+    });
+    setReviewFiles([]);
+    setReviewPreviews([]);
+  };
+
+  const handleReviewSubmit = async (event) => {
+    event.preventDefault();
+
+    const finalName = (reviewForm.userName || user?.name || '').trim();
+    const finalEmail = (reviewForm.userEmail || user?.email || '').trim().toLowerCase();
+    const finalPhone = reviewForm.userPhone.trim();
+    const finalComment = reviewForm.comment.trim();
+
+    if (!finalName) {
+      toast.error('Please add your name.');
+      return;
+    }
+
+    if (!finalEmail && !finalPhone) {
+      toast.error('Please add an email or phone number.');
+      return;
+    }
+
+    if (finalComment.length < 10) {
+      toast.error('Please write at least 10 characters.');
+      return;
+    }
+
+    setIsSubmittingReview(true);
+
+    try {
+      let imageUrls = [];
+
+      if (reviewFiles.length > 0) {
+        const formData = new FormData();
+        reviewFiles.forEach((file) => formData.append('images', file));
+        formData.append('uploadType', 'product');
+        const uploadResponse = await api.post('/reviews/upload', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        imageUrls = uploadResponse.data?.urls || [];
+      }
+
+      const response = await api.post('/reviews', {
+        productId: product.id || product.handle || handle,
+        rating: Number(reviewForm.rating),
+        comment: finalComment,
+        userName: finalName,
+        userEmail: finalEmail || null,
+        userPhone: finalPhone || null,
+        images: imageUrls,
+      });
+
+      setProduct((current) => ({
+        ...current,
+        reviews: [response.data, ...(current.reviews || [])],
+      }));
+      resetReviewForm();
+      toast.success('Review submitted. Thank you!');
+    } catch (error) {
+      toast.error(error.response?.data?.error || 'Unable to submit review.');
+    } finally {
+      setIsSubmittingReview(false);
+    }
   };
 
   return (
@@ -229,9 +360,13 @@ const ProductDetails = () => {
 
           <div className="mb-7 flex flex-wrap items-center gap-3">
             <div className="flex items-center text-[#fbbf24]">
-              {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} size={14} fill={i < Math.round(averageRating || 0) ? 'currentColor' : 'none'} />
+              ))}
             </div>
-            <span className="text-[#0a192f] font-black text-xs">5.0 | ({product.reviews?.length || 0} Reviews)</span>
+            <span className="text-[#0a192f] font-black text-xs">
+              {(averageRating || 0).toFixed(1)} | ({reviewCount} Reviews)
+            </span>
             <div className="w-4 h-4 bg-[#3b82f6] rounded-full text-white flex items-center justify-center">
               <ShieldCheck size={10} />
             </div>
@@ -460,6 +595,189 @@ const ProductDetails = () => {
           </div>
         </motion.div>
       </div>
+
+      <section className="mt-16 border-t border-neutral-200 pt-14">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="space-y-6">
+            <div>
+              <p className="mb-2 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.24em] text-[#e97055]">
+                <MessageCircle size={14} /> Customer Reviews
+              </p>
+              <h2 className="text-3xl font-black uppercase leading-none text-[#0a192f] sm:text-4xl">
+                Little words from happy threads
+              </h2>
+            </div>
+
+            <div className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm">
+              <div className="flex flex-wrap items-end justify-between gap-5">
+                <div>
+                  <p className="text-5xl font-black text-[#0a192f]">{(averageRating || 0).toFixed(1)}</p>
+                  <div className="mt-2 flex text-[#f7b84b]">
+                    {[...Array(5)].map((_, index) => (
+                      <Star key={index} size={18} fill={index < Math.round(averageRating || 0) ? 'currentColor' : 'none'} />
+                    ))}
+                  </div>
+                </div>
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-neutral-400">
+                  Based on {reviewCount} {reviewCount === 1 ? 'review' : 'reviews'}
+                </p>
+              </div>
+
+              <div className="mt-6 space-y-3">
+                {ratingBreakdown.map((item) => (
+                  <div key={item.rating} className="grid grid-cols-[42px_1fr_28px] items-center gap-3">
+                    <span className="text-xs font-black text-[#0a192f]">{item.rating} star</span>
+                    <div className="h-2 overflow-hidden rounded-full bg-[#f4eee7]">
+                      <div
+                        className="h-full rounded-full bg-[#7dc7bd]"
+                        style={{ width: reviewCount ? `${(item.count / reviewCount) * 100}%` : '0%' }}
+                      ></div>
+                    </div>
+                    <span className="text-right text-xs font-bold text-neutral-400">{item.count}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <form onSubmit={handleReviewSubmit} className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm">
+              <div className="mb-5">
+                <h3 className="text-sm font-black uppercase tracking-[0.18em] text-[#0a192f]">Write a review</h3>
+                <p className="mt-2 text-xs font-bold leading-6 text-neutral-500">
+                  Share fit, fabric, comfort, and photos so other parents can choose with confidence.
+                </p>
+              </div>
+
+              <div className="mb-5 flex gap-1 text-[#f7b84b]">
+                {[1, 2, 3, 4, 5].map((rating) => (
+                  <button
+                    key={rating}
+                    type="button"
+                    onClick={() => setReviewForm((current) => ({ ...current, rating }))}
+                    className="rounded-full p-1 transition-transform hover:scale-110"
+                    aria-label={`${rating} star rating`}
+                  >
+                    <Star size={24} fill={rating <= reviewForm.rating ? 'currentColor' : 'none'} />
+                  </button>
+                ))}
+              </div>
+
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <input
+                  name="userName"
+                  value={reviewForm.userName}
+                  onChange={handleReviewInputChange}
+                  placeholder={user?.name || 'Your name'}
+                  className="h-12 rounded-md border border-neutral-200 bg-[#fffaf5] px-4 text-sm font-bold outline-none transition-colors focus:border-[#0a192f]"
+                />
+                <input
+                  name="userEmail"
+                  type="email"
+                  value={reviewForm.userEmail}
+                  onChange={handleReviewInputChange}
+                  placeholder={user?.email || 'Email address'}
+                  className="h-12 rounded-md border border-neutral-200 bg-[#fffaf5] px-4 text-sm font-bold outline-none transition-colors focus:border-[#0a192f]"
+                />
+                <input
+                  name="userPhone"
+                  value={reviewForm.userPhone}
+                  onChange={handleReviewInputChange}
+                  placeholder="Phone number"
+                  className="h-12 rounded-md border border-neutral-200 bg-[#fffaf5] px-4 text-sm font-bold outline-none transition-colors focus:border-[#0a192f] sm:col-span-2"
+                />
+                <textarea
+                  name="comment"
+                  value={reviewForm.comment}
+                  onChange={handleReviewInputChange}
+                  placeholder="How did this piece feel, fit, and look?"
+                  rows={4}
+                  className="resize-none rounded-md border border-neutral-200 bg-[#fffaf5] px-4 py-3 text-sm font-bold leading-6 outline-none transition-colors focus:border-[#0a192f] sm:col-span-2"
+                />
+              </div>
+
+              <div className="mt-4">
+                <label className="inline-flex h-11 cursor-pointer items-center gap-2 rounded-md border border-dashed border-[#7dc7bd] bg-[#f5fffd] px-4 text-[10px] font-black uppercase tracking-[0.16em] text-[#0a192f] transition-colors hover:border-[#0a192f]">
+                  <ImagePlus size={16} /> Add Photos
+                  <input type="file" accept="image/*" multiple onChange={handleReviewImageChange} className="hidden" />
+                </label>
+                {reviewPreviews.length > 0 && (
+                  <div className="mt-4 grid grid-cols-5 gap-2">
+                    {reviewPreviews.map((preview, index) => (
+                      <div key={`${preview.name}-${preview.url}`} className="relative aspect-square overflow-hidden rounded-md border border-neutral-200 bg-neutral-50">
+                        <img src={preview.url} alt="" className="h-full w-full object-cover" />
+                        <button
+                          type="button"
+                          onClick={() => removeReviewImage(index)}
+                          className="absolute right-1 top-1 grid h-6 w-6 place-items-center rounded-full bg-white text-[#e97055] shadow-sm"
+                          aria-label="Remove review photo"
+                        >
+                          <Trash2 size={12} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmittingReview}
+                className="mt-6 inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-[#0a192f] px-5 text-xs font-black uppercase tracking-widest text-white transition-colors hover:bg-[#12345a] disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {isSubmittingReview ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
+                {isSubmittingReview ? 'Submitting...' : 'Submit Review'}
+              </button>
+            </form>
+          </div>
+
+          <div className="space-y-4">
+            {reviews.length > 0 ? (
+              reviews.map((review) => (
+                <article key={review.id} className="rounded-lg border border-neutral-200 bg-white p-5 shadow-sm">
+                  <div className="flex flex-wrap items-start justify-between gap-4">
+                    <div>
+                      <div className="mb-2 flex text-[#f7b84b]">
+                        {[...Array(5)].map((_, index) => (
+                          <Star key={index} size={15} fill={index < Number(review.rating || 0) ? 'currentColor' : 'none'} />
+                        ))}
+                      </div>
+                      <h3 className="text-sm font-black uppercase tracking-wide text-[#0a192f]">
+                        {review.userName || 'Anonymous'}
+                      </h3>
+                    </div>
+                    <span className="rounded-full bg-[#f4eee7] px-3 py-1 text-[10px] font-black uppercase tracking-[0.14em] text-[#e97055]">
+                      {new Date(review.createdAt).toLocaleDateString()}
+                    </span>
+                  </div>
+                  <p className="mt-4 text-sm font-semibold leading-7 text-neutral-600">{review.comment}</p>
+                  {Array.isArray(review.images) && review.images.length > 0 && (
+                    <div className="mt-4 grid grid-cols-3 gap-2 sm:grid-cols-5">
+                      {review.images.map((image, index) => (
+                        <a
+                          key={`${review.id}-${image}-${index}`}
+                          href={image}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="aspect-square overflow-hidden rounded-md border border-neutral-100 bg-neutral-50"
+                        >
+                          <img src={image} alt="" className="h-full w-full object-cover transition-transform hover:scale-105" />
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </article>
+              ))
+            ) : (
+              <div className="flex min-h-[320px] flex-col items-center justify-center rounded-lg border border-dashed border-[#7dc7bd] bg-white p-8 text-center">
+                <img src="/logo.png" alt="Little Threads" className="mb-5 h-20 w-auto object-contain" />
+                <h3 className="text-lg font-black uppercase text-[#0a192f]">No reviews yet</h3>
+                <p className="mt-2 max-w-sm text-sm font-bold leading-6 text-neutral-500">
+                  Be the first to review this Little Threads piece.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
 
       {/* Related */}
       {relatedProducts.length > 0 && (

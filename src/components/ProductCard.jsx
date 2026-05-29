@@ -12,6 +12,21 @@ const isUsableImage = (value) => {
   return normalized !== '' && !normalized.includes('placeholder-product');
 };
 
+const isStaleRenderUpload = (value) => (
+  typeof value === 'string' &&
+  value.includes('littlethread-backend.onrender.com/uploads/')
+);
+
+const getPrimaryProductImage = (product) => {
+  const images = Array.isArray(product.images) ? product.images.filter(isUsableImage) : [];
+
+  if (images.length > 0 && isStaleRenderUpload(product.thumbnailUrl)) {
+    return images[0];
+  }
+
+  return [product.thumbnailUrl, ...images].find(isUsableImage) || '/placeholder-product.png';
+};
+
 const ProductCard = ({ product }) => {
   const [showVariantModal, setShowVariantModal] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
@@ -98,11 +113,13 @@ const ProductCard = ({ product }) => {
 
   const closeVariantModal = () => setShowVariantModal(false);
 
-  const primaryImage = product.thumbnailUrl || product.images?.[0] || '/placeholder-product.png';
+  const primaryImage = getPrimaryProductImage(product);
   const hoverImage = useMemo(() => {
+    const images = Array.isArray(product.images) ? product.images.filter(isUsableImage) : [];
     const candidates = [
-      product.hoverThumbnailUrl,
-      ...(Array.isArray(product.images) ? product.images.slice(1) : []),
+      ...(isStaleRenderUpload(product.hoverThumbnailUrl) ? [] : [product.hoverThumbnailUrl]),
+      ...images.slice(1),
+      ...images,
     ];
 
     return candidates.find((image) => isUsableImage(image) && image !== primaryImage) || null;
